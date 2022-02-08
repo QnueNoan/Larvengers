@@ -11,13 +11,12 @@ public class Main {
 		fenetre	 = new JFrame("THE FLOOR IS LARVA");
 		view = new View(); 
 		int w = view.getWIDTH() ;
-		int l = view.getLENGTH();
+		int h = view.getHEIGHT();
 		fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		fenetre.setSize(w, l); 
+		fenetre.setSize(w, h); 
 		fenetre.setLocationRelativeTo(null);
 		fenetre.setResizable(false);
 		fenetre.setAlwaysOnTop(true);
-		
 		fenetre.setContentPane(view);
 		fenetre.setVisible(true);
 

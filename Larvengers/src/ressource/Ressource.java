@@ -3,10 +3,13 @@ package ressource;
 import java.awt.Point;
 import java.util.Random;
 
+import mvc.View;
+
 public class Ressource {
 	
 	/*
-	 * 
+	 * capacity : Integer attribute about the 
+	 * coordinates : Point attribute 
 	 */
 	private int capacity;
 	private Point coordinates;
@@ -23,6 +26,12 @@ public class Ressource {
 	private static final Random random_type = new Random();
 	private static final Random random_capacity = new Random();
 	
+	/**
+	 * randomX : 
+	 * randomY : 
+	 */
+	private static final Random randomX = new Random();
+	private static final Random randomY = new Random();
 	/**
 	 * MIN_CAPACITY : Constant of the minimum value for a capacity
 	 * MAX_CAPACITY : Constant of the maximum for a capacity
@@ -51,7 +60,7 @@ public class Ressource {
 	 * We use a random number between 0 and 2 to define the type
 	 */
 	private void init_type() {
-		int v = random_type.nextInt((MAX_TYPE - MIN_TYPE) + MIN_TYPE);
+		int v = random_type.nextInt((MAX_TYPE - MIN_TYPE + 1) + MIN_TYPE);
 		switch(v) {
 		case 0 :
 			type = TypeRessource.PICKLE;
@@ -78,7 +87,11 @@ public class Ressource {
 	}
 	
 	private void init_coordinates() {
+		double x, y;
+		x = 100 + (View.widthBackground - 100 - 50)*randomX.nextDouble();
+		y = 100 + (View.heigthBackground - 200)*randomY.nextDouble();
 		this.coordinates = new Point();
+		this.coordinates.setLocation(x, y);
 	}
 	/**
 	 * Method getCapacity() : return the remain capacity of the ressource
@@ -92,8 +105,8 @@ public class Ressource {
 	 * Method decrease : Decrease the value of the capacity
 	 * @param int
 	 */
-	public void decrease(int value) {
-		this.capacity -= value;
+	public void decrease() {
+		this.capacity --;
 	}
 	
 	/*

@@ -1,17 +1,22 @@
 package mvc;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
+import ressource.ListRessources;
+import ressource.TypeRessource;
+import unit.ListLarvas;
+
 public class View extends JPanel{
 	/*
 	 * width and length of the window
 	 */
 	public static int WIDTH = 1000;
-	public static int LENGTH = 700;
+	public static int HEIGTH = 700;
 	/*
 	 * the background image
 	 */
@@ -21,7 +26,13 @@ public class View extends JPanel{
 	 * width and length of the board game
 	 */
 	public static int widthBackground = 700;
-	public static int lengthBackground = 700;
+	public static int heigthBackground = 700;
+	
+	/*
+	 * List of elements
+	 */
+	public ListRessources ressources;
+	public ListLarvas larvas;
 	
 	/*
 	 * constructor of the class
@@ -30,16 +41,31 @@ public class View extends JPanel{
 		super();
 		this.iconBackground = new ImageIcon(getClass().getResource("/assets/Bg.jpg"));
 		this.imgBackground = this.iconBackground.getImage();
+		
+		ressources = new ListRessources();
+		larvas = new ListLarvas();
+		
 		//ResizeImg.changeSize(inImg, outImg, width, height);
 		this.setFocusable(true);
 		this.requestFocusInWindow();
+		(new Thread() {
+			@Override
+			public synchronized void run() {
+				while (true) {
+					revalidate();
+					repaint();
+				}
+			}
+		}).start();
 		
 	}
 	/*
 	 * this function helps to paint the component of the game
 	 */
 	public void paintComponent(Graphics g) {
-		g.drawImage(this.imgBackground, 0, 0, widthBackground, lengthBackground, null);
+		g.drawImage(this.imgBackground, 0, 0, widthBackground, heigthBackground, null);
+		ressources.paintRessources(g);	
+		larvas.paintLarvas(g);
 	}
 	
 	/*
@@ -48,15 +74,16 @@ public class View extends JPanel{
 	public static int getWIDTH() {
 		return WIDTH;
 	}
-	public static void setWIDTH(int wIDTH) {
-		WIDTH = wIDTH;
+	public static void setWIDTH(int WIDTH) {
+		WIDTH = WIDTH;
 	}
 	
-	public static int getLENGTH() {
-		return LENGTH;
+	public static int getHEIGHT() {
+		return HEIGTH;
 	}
-	public static void setLENGTH(int lENGTH) {
-		LENGTH = lENGTH;
+	
+	public static void setHEIGHT(int HEIGHT) {
+		HEIGHT = HEIGHT;
 	}
 	
 	public static int getWidthBackground() {
@@ -66,11 +93,11 @@ public class View extends JPanel{
 		View.widthBackground = widthBackground;
 	}
 	
-	public static int getLengthBackground() {
-		return lengthBackground;
+	public static int getHeigthBackground() {
+		return heigthBackground;
 	}
-	public static void setLengthBackground(int lengthBackground) {
-		View.lengthBackground = lengthBackground;
+	public static void setHeigthBackground(int lengthBackground) {
+		View.heigthBackground = lengthBackground;
 	}
 	
 }
