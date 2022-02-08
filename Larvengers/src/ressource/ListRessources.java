@@ -24,23 +24,7 @@ public class ListRessources {
 		this.ressources = new ArrayList<Ressource>();
 		addRessources();
 	}
-	
-	private void addRessources() {
-		(new Thread() {
-			@Override
-			public void run() {
-				while(true) {
-					if(ressources.size() <= MAX_RESSOURCES) {
-						ressources.add(new Ressource());
-					}
-					try {
-						Thread.sleep(TIMER_DISPLAY_RESSOURCE);
-					} catch(Exception e) {e.printStackTrace();}
-				}
-			}
-		}).start();
-	}
-	
+
 	public void paintRessources(Graphics g) {
 		for(int i = 0; i < ressources.size(); i ++) {
 			if(ressources.get(i).getTypeRessource() == TypeRessource.POOP)
@@ -52,11 +36,5 @@ public class ListRessources {
 			g.drawOval(ressources.get(i).getCoordinates().x, ressources.get(i).getCoordinates().y, (View.widthBackground - WIDTH_IMG) , (View.heigthBackground - HEIGHT_IMG));
 		}
 	}
-	/*
-	 * Method getRessources : return the current ressources that are going to be displayed on the map
-	 * @return ressources
-	 */
-	public ArrayList<Ressource> getRessources() {
-		return this.ressources;
-	}
+
 }

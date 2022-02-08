@@ -5,44 +5,33 @@ import java.awt.Point;
 
 import javax.swing.ImageIcon;
 
-public abstract class Unit {
+import element.Element;
+import element.TypeElement;
+
+public abstract class Unit extends Element{
 	/*
 	 * attributs of the unit
-	 * coordinate : position of the unit
 	 * health : life points of the unit
 	 * attackPoint : ennemy health's decreased for each attack
 	 * speed : speed of the unit
 	 */
-	private Point coordinate;
 	private int health;
 	private int attackPoint;
 	private int speed;
 	
-	/*
-	 * Define the type of unit
-	 */
-	private static int unitType;
-	
-	public Unit (int h, int a, int s, int u) {
-		this.coordinate= randomCoordinate();
+	public Unit (int h, int a, int s, TypeElement t) {
+		super (t);
 		this.health = h;
 		this.attackPoint = a;
 		this.speed = s;
-		this.unitType = u;
-		
 	}
-	
-	/*
-	 * Generate randomly the position of the unit at its creation
-	 */
-	protected abstract Point randomCoordinate();
 	
 	/*
 	 * Change the position of the unit to be "newPosition"
 	 * @param newPosition : new coordinate of the unit
 	 */
 	protected void deplacement(Point newPosition) {
-		coordinate = newPosition;
+		coordinates = newPosition;
 	}
 	
 	/*
@@ -56,14 +45,6 @@ public abstract class Unit {
 	/*
 	 * Getters and setters
 	 */
-	public Point getCoordinate() {
-		return coordinate;
-	}
-
-	public void setCoordinate(Point coordinate) {
-		this.coordinate = coordinate;
-	}
-
 	public int getHealth() {
 		return health;
 	}
@@ -80,11 +61,14 @@ public abstract class Unit {
 		this.attackPoint = attackPoint;
 	}
 
-	public static int getUnitType() {
-		return unitType;
+	public int getSpeed() {
+		return speed;
 	}
 
-	public static void setUnitType(int unitType) {
-		Unit.unitType = unitType;
+	public void setSpeed(int speed) {
+		this.speed = speed;
 	}	
+	
+	
+	
 }

@@ -3,13 +3,14 @@ package mvc;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.util.ArrayList;
+
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
-import ressource.ListRessources;
-import ressource.TypeRessource;
-import unit.ListLarvas;
+import element.*;
+import unit.Larva;
 
 public class View extends JPanel{
 	/*
@@ -31,8 +32,8 @@ public class View extends JPanel{
 	/*
 	 * List of elements
 	 */
-	public ListRessources ressources;
-	public ListLarvas larvas;
+	public ListElements ressources;
+	public ListElements larvas;
 	
 	/*
 	 * constructor of the class
@@ -42,8 +43,8 @@ public class View extends JPanel{
 		this.iconBackground = new ImageIcon(getClass().getResource("/assets/Bg.jpg"));
 		this.imgBackground = this.iconBackground.getImage();
 		
-		ressources = new ListRessources();
-		larvas = new ListLarvas();
+		ressources = new ListElements();
+		larvas = new ListElements();
 		
 		//ResizeImg.changeSize(inImg, outImg, width, height);
 		this.setFocusable(true);
@@ -64,8 +65,6 @@ public class View extends JPanel{
 	 */
 	public void paintComponent(Graphics g) {
 		g.drawImage(this.imgBackground, 0, 0, widthBackground, heigthBackground, null);
-		ressources.paintRessources(g);	
-		larvas.paintLarvas(g);
 	}
 	
 	/*

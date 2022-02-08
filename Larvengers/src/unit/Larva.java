@@ -5,6 +5,7 @@ import java.awt.Point;
 
 import javax.swing.ImageIcon;
 
+import element.TypeElement;
 import mvc.View;
 import ressource.Ressource;
 
@@ -33,24 +34,17 @@ public class Larva extends Unit{
 	public static int health = 100;
 	public static int speed = 5;
 	
-	/*
-	 * Image attributs
-	 */
-	public static int unitWidth = 100;
-	public static int unitHeigth = 100;
-	
 	public Larva () {
-		super (health, 1, speed, 0);
+		super (health, 1, speed, TypeElement.LARVA);
 		picklesEaten = 0;
 		cocktailDrunk = 0;
 		larvaState = 0;
-		speed = 5;
 	}
 	
 	@Override
 	protected Point randomCoordinate() {
-		return (new Point ( (int)(Math.random() * ((View.widthBackground-unitWidth - 0) + 1)) + 0,
-				(int)(Math.random() * ((View.heigthBackground-unitHeigth - 0) + 1)) + 0));
+		return (new Point ( (int)(Math.random() * ((View.widthBackground-width - 0) + 1)) + 0,
+				(int)(Math.random() * ((View.heigthBackground-heigth - 0) + 1)) + 0));
 	}
 	
 	/*
@@ -68,7 +62,7 @@ public class Larva extends Unit{
 	 */
 	public void eatRessources (Ressource r) {
 		if (this.larvaState != 1 && r.getCapacity()>1) {
-			switch(r.getTypeRessource()) {
+			switch(r.getElementType()) {
 				case PICKLE:
 					this.picklesEaten++;
 					break;
@@ -131,35 +125,4 @@ public class Larva extends Unit{
 		Larva.cocktailToEvolve = cocktailToEvolve;
 	}
 
-	public int getHealth() {
-		return health;
-	}
-
-	public void setHealth(int health) {
-		Larva.health = health;
-	}
-
-	public static int getSpeed() {
-		return speed;
-	}
-
-	public static void setSpeed(int speed) {
-		Larva.speed = speed;
-	}
-
-	public static int getUnitWidth() {
-		return unitWidth;
-	}
-
-	public static void setUnitWidth(int unitWidth) {
-		Larva.unitWidth = unitWidth;
-	}
-
-	public static int getUnitHeigth() {
-		return unitHeigth;
-	}
-
-	public static void setUnitHeigth(int unitHeigth) {
-		Larva.unitHeigth = unitHeigth;
-	}
 }

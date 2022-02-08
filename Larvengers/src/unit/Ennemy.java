@@ -2,6 +2,8 @@ package unit;
 
 import java.awt.Point;
 
+import element.TypeElement;
+
 /*
  * Ennemy class
  * Unit managed by AI
@@ -9,8 +11,8 @@ import java.awt.Point;
  */
 public class Ennemy extends Unit{
 
-	public Ennemy(int h, int a, int s, int u) {
-		super(h, a, s, u);
+	public Ennemy(int h, int a, int s, TypeElement t) {
+		super(h, a, s, t);
 		// TODO Auto-generated constructor stub
 	}
 
@@ -18,7 +20,6 @@ public class Ennemy extends Unit{
 	protected Point randomCoordinate() {
 		// TODO Auto-generated method stub
 		return null;
-	}
-		
+	}	
 	
 }
