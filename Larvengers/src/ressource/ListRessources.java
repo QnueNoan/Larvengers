@@ -2,39 +2,25 @@ package ressource;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.lang.annotation.ElementType;
 import java.util.ArrayList;
 
-import mvc.View;
+import element.ListElements;
+import element.TypeElement;
+import ressource.Ressource;
 
-public class ListRessources {
+public class ListRessources extends ListElements<Ressource>{
 	/*
-	 * ressources : List of ressources
 	 * MAX_RESSOURCES : Maximum constant that the list is allowed to contain
 	 */
-	private ArrayList<Ressource> ressources;
 	private static final int MAX_RESSOURCES = 20;
-	
-	private static final int HEIGHT_IMG = 600;
-	private static final int WIDTH_IMG = 650;
 	
 	private static final int TIMER_DISPLAY_RESSOURCE = 10000;
 	
 	
 	public ListRessources() {
-		this.ressources = new ArrayList<Ressource>();
-		addRessources();
-	}
-
-	public void paintRessources(Graphics g) {
-		for(int i = 0; i < ressources.size(); i ++) {
-			if(ressources.get(i).getTypeRessource() == TypeRessource.POOP)
-				g.setColor(Color.BLACK);
-			else if (ressources.get(i).getTypeRessource() == TypeRessource.COCKTAIL)
-				g.setColor(Color.PINK);
-			else 
-				g.setColor(Color.blue);
-			g.drawOval(ressources.get(i).getCoordinates().x, ressources.get(i).getCoordinates().y, (View.widthBackground - WIDTH_IMG) , (View.heigthBackground - HEIGHT_IMG));
-		}
+		super (TIMER_DISPLAY_RESSOURCE, MAX_RESSOURCES);
+		addElements(TypeElement.RESSOURCE);
 	}
 
 }

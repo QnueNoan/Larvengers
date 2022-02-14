@@ -5,6 +5,7 @@ public enum TypeElement {
 	COCOON,
 	BUTTERFLY,
 	MOSKITO,
+	RESSOURCE,
 	PICKLE,
 	COCKTAIL,
 	POOP

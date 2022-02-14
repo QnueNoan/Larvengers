@@ -30,9 +30,14 @@ public class Ressource extends Element{
 	private static final int MIN_TYPE = 0;
 	private static final int MAX_TYPE = 2;
 	
+	/*
+	 * Image size
+	 */
+	private final int HEIGHT_IMG = 600;
+	private final int WIDTH_IMG = 650;
+	
 	public Ressource() {
 		super(init_type());
-		init_type();
 		init_capacity();
 	}
 	
@@ -40,7 +45,7 @@ public class Ressource extends Element{
 	 * Method init_type() : Initialize the specific type of the ressource thanks to the Enum TypeRessource
 	 * We use a random number between 0 and 2 to define the type
 	 */
-	private static TypeElement init_type() {
+	public static TypeElement init_type() {
 		int v = new Random().nextInt((MAX_TYPE - MIN_TYPE + 1) + MIN_TYPE);
 		switch(v) {
 		case 0 :
@@ -85,6 +90,14 @@ public class Ressource extends Element{
 	
 	public int getCapacity() {
 		return capacity;
+	}
+
+	public int getHEIGHT_IMG() {
+		return HEIGHT_IMG;
+	}
+
+	public int getWIDTH_IMG() {
+		return WIDTH_IMG;
 	}
 
 }

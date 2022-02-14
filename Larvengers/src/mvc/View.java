@@ -10,7 +10,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 import element.*;
+import ressource.ListRessources;
 import unit.Larva;
+import unit.ListLarvas;
 
 public class View extends JPanel{
 	/*
@@ -32,8 +34,8 @@ public class View extends JPanel{
 	/*
 	 * List of elements
 	 */
-	public ListElements ressources;
-	public ListElements larvas;
+	public ListRessources ressources;
+	public ListLarvas larvas;
 	
 	/*
 	 * constructor of the class
@@ -43,8 +45,8 @@ public class View extends JPanel{
 		this.iconBackground = new ImageIcon(getClass().getResource("/assets/Bg.jpg"));
 		this.imgBackground = this.iconBackground.getImage();
 		
-		ressources = new ListElements();
-		larvas = new ListElements();
+		ressources = new ListRessources();
+		larvas = new ListLarvas();
 		
 		//ResizeImg.changeSize(inImg, outImg, width, height);
 		this.setFocusable(true);
@@ -55,16 +57,33 @@ public class View extends JPanel{
 				while (true) {
 					revalidate();
 					repaint();
+					try {
+						Thread.sleep(41);
+					} catch(Exception e) {e.printStackTrace();}
 				}
+				
 			}
+			
 		}).start();
 		
 	}
 	/*
 	 * this function helps to paint the component of the game
 	 */
-	public void paintComponent(Graphics g) {
+	public void paintBackground(Graphics g) {
 		g.drawImage(this.imgBackground, 0, 0, widthBackground, heigthBackground, null);
+	}
+	
+	/*
+	 * Paint the different parts of the game
+	 * @Override
+	 */
+	public void paint(Graphics g) {
+		// TODO Auto-generated method stub
+		super.paint(g);
+		paintBackground(g);
+		ressources.paintElements(g);
+		//larvas.paintElements(g);
 	}
 	
 	/*
