@@ -45,9 +45,6 @@ public class View extends JPanel{
 		this.iconBackground = new ImageIcon(getClass().getResource("/assets/Bg.jpg"));
 		this.imgBackground = this.iconBackground.getImage();
 		
-		ressources = new ListRessources();
-		larvas = new ListLarvas();
-		
 		//ResizeImg.changeSize(inImg, outImg, width, height);
 		this.setFocusable(true);
 		this.requestFocusInWindow();
@@ -83,25 +80,29 @@ public class View extends JPanel{
 		super.paint(g);
 		paintBackground(g);
 		ressources.paintElements(g);
-		//larvas.paintElements(g);
+		larvas.paintElements(g);
 	}
 	
 	/*
 	 * GETTERS AND SETTERS 
 	 */
+	public void setList (ListRessources ressources, ListLarvas larvas) {
+		this.ressources = ressources;
+		this.larvas = larvas;
+	}
 	public static int getWIDTH() {
 		return WIDTH;
 	}
-	public static void setWIDTH(int WIDTH) {
-		WIDTH = WIDTH;
+	public static void setWIDTH(int w) {
+		WIDTH = w;
 	}
 	
 	public static int getHEIGHT() {
 		return HEIGTH;
 	}
 	
-	public static void setHEIGHT(int HEIGHT) {
-		HEIGHT = HEIGHT;
+	public static void setHEIGHT(int h) {
+		HEIGTH = h;
 	}
 	
 	public static int getWidthBackground() {

@@ -14,10 +14,12 @@ public abstract class Unit extends Element{
 	 * health : life points of the unit
 	 * attackPoint : ennemy health's decreased for each attack
 	 * speed : speed of the unit
+	 * targetedLocation : position after unit deplacement
 	 */
 	private int health;
 	private int attackPoint;
 	private int speed;
+	private Point targetedLocation;
 	
 	public Unit (int h, int a, int s, TypeElement t) {
 		super (t);
@@ -40,6 +42,26 @@ public abstract class Unit extends Element{
 	 */
 	protected void attack (Unit opponent) {
 		opponent.setHealth(opponent.getHealth()-this.getAttackPoint());
+	}
+	
+	/*
+	 * Change the state of the ressource depending of the modifications it receives
+	 */
+	@Override
+	public void actualizeElement() {
+		if (targetedLocation != null) {
+			double distance = Math.sqrt((targetedLocation.y - coordinates.y) * (targetedLocation.y - coordinates.y) 
+					+ (targetedLocation.x - coordinates.x) * (targetedLocation.x - coordinates.x));
+			double speedRatio = (distance/speed);
+			double deltaX;
+			double deltaY;
+			if (speedRatio < 1) {
+				coordinates.x = targetedLocation.x;
+				coordinates.y = targetedLocation.y;
+			}
+			coordinates.x += (int)(targetedLocation.x - coordinates.x) / speedRatio;
+			coordinates.y += (int)(targetedLocation.y - coordinates.y) / speedRatio;
+		}
 	}
 	
 	/*
@@ -67,8 +89,14 @@ public abstract class Unit extends Element{
 
 	public void setSpeed(int speed) {
 		this.speed = speed;
+	}
+
+	public Point getTargetedLocation() {
+		return targetedLocation;
+	}
+
+	public void setTargetedLocation(Point targetedLocation) {
+		this.targetedLocation = targetedLocation;
 	}	
-	
-	
 	
 }

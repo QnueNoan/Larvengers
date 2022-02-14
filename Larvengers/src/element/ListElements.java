@@ -18,13 +18,13 @@ public abstract class ListElements<T extends Element> {
 	private ArrayList<T> elements = new ArrayList<>();
 	
 	// Timer for element generation
-	public static int TIMER_DISPLAY_RESSOURCE;
+	public static int TIMER_DISPLAY_ELEMENT;
 	
 	// Max elements stored
 	public static int MAX_ELEMENTS = 10;
 	
 	public ListElements (int timer, int maxElem) {
-		TIMER_DISPLAY_RESSOURCE = timer;
+		TIMER_DISPLAY_ELEMENT = timer;
 		MAX_ELEMENTS = maxElem;
 	}
 	
@@ -43,12 +43,12 @@ public abstract class ListElements<T extends Element> {
 							elements.add((T) new Ressource());
 							break;
 						case LARVA : 
-							elements.add( (T) new Larva());
+							elements.add((T) new Larva());
 							break;
 						}
 					}
 					try {
-						Thread.sleep(TIMER_DISPLAY_RESSOURCE);
+						Thread.sleep(TIMER_DISPLAY_ELEMENT);
 					} catch(Exception e) {e.printStackTrace();}
 				}
 			}
@@ -68,12 +68,12 @@ public abstract class ListElements<T extends Element> {
      * Getters and setters
      */
 
-	public static int getTIMER_DISPLAY_RESSOURCE() {
-		return TIMER_DISPLAY_RESSOURCE;
+	public static int getTIMER_DISPLAY_ELEMENT() {
+		return TIMER_DISPLAY_ELEMENT;
 	}
 
-	public static void setTIMER_DISPLAY_RESSOURCE(int tIMER_DISPLAY_RESSOURCE) {
-		TIMER_DISPLAY_RESSOURCE = tIMER_DISPLAY_RESSOURCE;
+	public static void setTIMER_DISPLAY_ELEMENT(int tIMER_DISPLAY_ELEMENT) {
+		TIMER_DISPLAY_ELEMENT = tIMER_DISPLAY_ELEMENT;
 	}
 
 	public static int getMAX_ELEMENTS() {

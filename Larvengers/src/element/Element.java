@@ -23,18 +23,36 @@ public abstract class Element {
 	 */
 	public int width;
 	public int heigth;
-	public  ImageIcon spriteTmp;
+	public ImageIcon spriteTmp;
 	public Image sprite;
 	
 	public Element (TypeElement t) {
 		initImage(t);
 		coordinates = randomCoordinate();
-		System.out.println(coordinates.toString());
+		
+		(new Thread() {
+			@Override
+			public synchronized void run() {
+				while (true) {
+					actualizeElement();
+					try {
+						Thread.sleep(80);
+					} catch(Exception e) {e.printStackTrace();}
+				}
+				
+			}
+			
+		}).start();
 	}
 	
 	public Element() {
 		
 	}
+	
+	/*
+	 * Change the state of the element depending of the modifications it receives
+	 */
+	public abstract void actualizeElement();
 	
 	/*
 	 * Initialise the image attributs according to the elementType
@@ -56,15 +74,15 @@ public abstract class Element {
 			break;
 		case POOP : 
 			this.spriteTmp = new ImageIcon(getClass().getResource("/assets/berry_bush.png"));
-			sprite = this.spriteTmp.getImage();
+			this.sprite = this.spriteTmp.getImage();
 			width = 50;
 			heigth = 50;
 			break;
 		case LARVA : 
-			spriteTmp = new ImageIcon(getClass().getResource("/assets/larva.jpg"));
-			sprite = this.spriteTmp.getImage();
-			width = 0;
-			heigth = 0;
+			this.spriteTmp = new ImageIcon(getClass().getResource("/assets/larva.jpg"));
+			this.sprite = this.spriteTmp.getImage();
+			width = 50;
+			heigth = 50;
 			break;
 		case COCOON : 
 			spriteTmp = new ImageIcon(getClass().getResource(""));
@@ -144,6 +162,5 @@ public abstract class Element {
 	public void setSprite(Image sprite) {
 		this.sprite = sprite;
 	}
-	
 	
 }

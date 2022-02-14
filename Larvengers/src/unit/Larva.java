@@ -22,8 +22,8 @@ public class Larva extends Unit{
 	
 	/*
 	 * Constant for evolution
-	 * picklesToEvolve : number of ressource "pickle" that the larve need to eat before evolving
-	 * cocktailToEvolve : number of ressource "coktail" that the larve need to eat before evolving
+	 * picklesToEvolve : number of ressource "pickle" that the larva need to eat before evolving
+	 * cocktailToEvolve : number of ressource "coktail" that the larva need to eat before evolving
 	 */
 	public static int picklesToEvolve = 10;
 	public static int cocktailToEvolve = 10;

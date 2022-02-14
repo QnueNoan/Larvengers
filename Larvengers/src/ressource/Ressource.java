@@ -85,6 +85,15 @@ public class Ressource extends Element{
 	}
 	
 	/*
+	 * Change the state of the ressource depending of the modifications it receives
+	 */
+	@Override
+	public void actualizeElement() {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	/*
 	 * Getters and setters
 	 */
 	
