@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 
 import element.*;
 import ressource.ListRessources;
+import ressource.Ressource;
 import unit.Larva;
 import unit.ListLarvas;
 
@@ -51,7 +52,7 @@ public class View extends JPanel{
 		(new Thread() {
 			@Override
 			public synchronized void run() {
-				while (true) {
+				while (true) {					
 					revalidate();
 					repaint();
 					try {

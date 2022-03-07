@@ -3,16 +3,25 @@ package mvc;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.lang.annotation.ElementType;
 
+import element.TypeElement;
 import ressource.ListRessources;
+import unit.Larva;
 import unit.ListLarvas;
+import unit.Unit;
 
 public class Control implements MouseListener{
 
 	/*
 	 * Position of the last click
 	 */
-	Point mouseClickedPosition = new Point();
+	private Point mouseClickedPosition = new Point();
+	
+	/*
+	 * Buffer of the latest unit selected
+	 */
+	private Unit bufferedUnit;
 	
 	/*
 	 * MVC useful components
@@ -29,7 +38,19 @@ public class Control implements MouseListener{
 	 */
 	public void mouseClicked(MouseEvent e) {
 		mouseClickedPosition = e.getPoint();
-		model.deplacement(mouseClickedPosition);
+		
+		// If the player clicked on a friendly unit, save it in the buffer
+		if (model.getLarvas().getClickedElement(mouseClickedPosition) != null) {
+			bufferedUnit = model.getLarvas().getClickedElement(mouseClickedPosition);
+		}
+		// If an unit is saved in the buffer, move it to the player click
+		else if (bufferedUnit != null) {
+			if (model.getRessources().getClickedElement(mouseClickedPosition) != null) {
+				bufferedUnit.setBufferedElement(model.getRessources().getClickedElement(mouseClickedPosition));
+				model.deplacement(new Point(model.getRessources().getClickedElement(mouseClickedPosition).getCoordinates()), bufferedUnit);
+			}
+			else model.deplacement(mouseClickedPosition, bufferedUnit);
+		}
 		
 	}
 	

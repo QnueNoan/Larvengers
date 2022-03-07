@@ -5,6 +5,7 @@ import java.awt.Point;
 
 import javax.swing.ImageIcon;
 
+import element.Element;
 import element.TypeElement;
 import mvc.View;
 import ressource.Ressource;
@@ -57,11 +58,20 @@ public class Larva extends Unit{
 		}
 	}
 	
+	@Override
+	protected void action(Element bufferedElement) {
+		if (bufferedElement.getElementType() == TypeElement.PICKLE ||
+				bufferedElement.getElementType() == TypeElement.COCKTAIL ||
+				bufferedElement.getElementType() == TypeElement.POOP) {
+			eatRessources((Ressource) bufferedElement);
+		}
+	}
+	
 	/*
-	 * 
+	 * Decrease the ressource amount of 1, increase the 'RessourceType' eated by 1 and modify the larva stats
 	 */
 	public void eatRessources (Ressource r) {
-		if (this.larvaState != 1 && r.getCapacity()>1) {
+		if (this.larvaState != 1 && r.getCapacity()>=1) {
 			switch(r.getElementType()) {
 				case PICKLE:
 					this.picklesEaten++;
@@ -73,6 +83,10 @@ public class Larva extends Unit{
 					if ( (int)(Math.random() * ((2 - 1) + 1)) + 1 == 1) {
 						picklesEaten=picklesToEvolve;
 						cocktailDrunk=cocktailToEvolve;
+					}
+					else {
+						picklesEaten = 0;
+						cocktailDrunk = 0;
 					};
 					
 					break;

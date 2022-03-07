@@ -79,7 +79,7 @@ public abstract class Element {
 			heigth = 50;
 			break;
 		case LARVA : 
-			this.spriteTmp = new ImageIcon(getClass().getResource("/assets/larva.jpg"));
+			this.spriteTmp = new ImageIcon(getClass().getResource("/assets/larva.png"));
 			this.sprite = this.spriteTmp.getImage();
 			width = 50;
 			heigth = 50;
@@ -114,6 +114,10 @@ public abstract class Element {
 	/*
 	 * Getters and setters
 	 */
+	public void setImage (String path, int width, int heigth) {
+		
+	}
+	
 	public Point getCoordinates() {
 		return coordinates;
 	}

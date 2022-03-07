@@ -20,7 +20,7 @@ public class ListLarvas extends ListElements<Larva>{
 	public static int TIMER_GEN_LARVAS = 10000;
 	
 	// Max larvas on the board
-	public static int MAX_LARVAS = 10;
+	public static int MAX_LARVAS = 5;
 
 	public ListLarvas () {
 		super (TIMER_GEN_LARVAS, MAX_LARVAS);

@@ -8,6 +8,7 @@ import java.util.Arrays;
 
 import javax.swing.ImageIcon;
 
+import mvc.Model;
 import ressource.Ressource;
 import unit.Larva;
 
@@ -21,7 +22,7 @@ public abstract class ListElements<T extends Element> {
 	public static int TIMER_DISPLAY_ELEMENT;
 	
 	// Max elements stored
-	public static int MAX_ELEMENTS = 10;
+	public static int MAX_ELEMENTS = 5;
 	
 	public ListElements (int timer, int maxElem) {
 		TIMER_DISPLAY_ELEMENT = timer;
@@ -40,7 +41,15 @@ public abstract class ListElements<T extends Element> {
 					if(elements.size() <= MAX_ELEMENTS) {
 						switch(te) {
 						case RESSOURCE :
-							elements.add((T) new Ressource());
+							// TODO Ressource generation
+							/*while (true) {
+								Ressource r = new Ressource();
+								if (Model.isEmpty(r)) {
+									System.out.println("valide");
+									elements.add((T) new Ressource());
+									break;
+								}
+							}*/
 							break;
 						case LARVA : 
 							elements.add((T) new Larva());
@@ -61,7 +70,21 @@ public abstract class ListElements<T extends Element> {
 	public void paintElements (Graphics g) {
 		for(int e=0; e<elements.size(); e++) {
 			g.drawImage(elements.get(e).sprite, elements.get(e).getCoordinates().x, elements.get(e).getCoordinates().y, elements.get(e).heigth, elements.get(e).width, null);			
+			g.drawRect(elements.get(e).coordinates.x, elements.get(e).coordinates.y, elements.get(e).width, elements.get(e).heigth);
 		}
+	}
+	
+	/*
+	 * Return the element if the player clicked on it
+	 */
+	public T getClickedElement (Point click) {
+		for (int i=0; i<elements.size(); i++) {
+			if (click.x >= elements.get(i).coordinates.x && click.x <= elements.get(i).coordinates.x+elements.get(i).width &&
+				click.y >= elements.get(i).coordinates.y && click.y <= elements.get(i).coordinates.y+elements.get(i).heigth) {
+				return elements.get(i);
+			}
+		}
+		return null;
 	}
     
     /*

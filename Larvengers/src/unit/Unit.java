@@ -20,13 +20,34 @@ public abstract class Unit extends Element{
 	private int attackPoint;
 	private int speed;
 	private Point targetedLocation;
+	private int range;
+	
+	/*
+	 * Constant for the range
+	 */
+	public static int RANGE = 15;
+	
+	/*
+	 * Element focused by the Unit 
+	 */
+	private Element bufferedElement;
 	
 	public Unit (int h, int a, int s, TypeElement t) {
 		super (t);
 		this.health = h;
 		this.attackPoint = a;
 		this.speed = s;
+		this.range = RANGE;
 	}
+	
+	public Unit() {
+		
+	}
+	
+	/*
+	 * Do an action on the bufferedElement
+	 */
+	protected abstract void action(Element bufferedElement);
 	
 	/*
 	 * Change the position of the unit to be "newPosition"
@@ -45,7 +66,7 @@ public abstract class Unit extends Element{
 	}
 	
 	/*
-	 * Change the state of the ressource depending of the modifications it receives
+	 * Change the state of the unit depending of the modifications it receives
 	 */
 	@Override
 	public void actualizeElement() {
@@ -59,9 +80,22 @@ public abstract class Unit extends Element{
 				coordinates.x = targetedLocation.x;
 				coordinates.y = targetedLocation.y;
 			}
-			coordinates.x += (int)(targetedLocation.x - coordinates.x) / speedRatio;
-			coordinates.y += (int)(targetedLocation.y - coordinates.y) / speedRatio;
+			else {
+				coordinates.x += (int)(targetedLocation.x - coordinates.x) / speedRatio;
+				coordinates.y += (int)(targetedLocation.y - coordinates.y) / speedRatio;
+			}
 		}
+		if (bufferedElement!=null && bufferedElementIsInRange()) {
+			action(bufferedElement);
+		}		
+	}
+	
+	// check if the Element in the unit's buffer is in its range
+	public boolean bufferedElementIsInRange() {
+		if ( Math.sqrt((bufferedElement.getCoordinates().x-coordinates.x)*(bufferedElement.getCoordinates().x-coordinates.x) + (bufferedElement.getCoordinates().y-coordinates.y)*(bufferedElement.getCoordinates().y-coordinates.y)) <= range) {
+			return true;
+		}
+		else return false;
 	}
 	
 	/*
@@ -97,6 +131,14 @@ public abstract class Unit extends Element{
 
 	public void setTargetedLocation(Point targetedLocation) {
 		this.targetedLocation = targetedLocation;
+	}
+
+	public Element getBufferedElement() {
+		return bufferedElement;
+	}
+
+	public void setBufferedElement(Element bufferedElement) {
+		this.bufferedElement = bufferedElement;
 	}	
 	
 }

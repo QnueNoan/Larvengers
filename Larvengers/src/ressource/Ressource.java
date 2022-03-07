@@ -42,6 +42,15 @@ public class Ressource extends Element{
 	}
 	
 	/*
+	 * Constructor for testing
+	 */
+	public Ressource(TypeElement t, Point coord) {
+		super (t);
+		this.setCoordinates(coord);
+		init_capacity();
+	}
+	
+	/*
 	 * Method init_type() : Initialize the specific type of the ressource thanks to the Enum TypeRessource
 	 * We use a random number between 0 and 2 to define the type
 	 */
@@ -89,8 +98,10 @@ public class Ressource extends Element{
 	 */
 	@Override
 	public void actualizeElement() {
-		// TODO Auto-generated method stub
 		
+		//TODO do real suppression because this is disgusting (but easier to do some test)
+		if( this.capacity < 1)
+			this.setCoordinates(new Point (1000, 1000));
 	}
 	
 	/*
