@@ -3,26 +3,18 @@ package ressource;
 import java.awt.Point;
 import java.util.Random;
 
-public class Ressource {
+import element.Element;
+import element.TypeElement;
+import mvc.View;
+
+public class Ressource extends Element{
 	
 	/*
-	 * 
+	 * capacity : Integer attribute about the 
+	 * coordinates : Point attribute 
 	 */
 	private int capacity;
-	private Point coordinates;
-	
-	/*
-	 * type : TypeRessource attribute
-	 */
-	private TypeRessource type;
-	
-	/**
-	 * random_type : Random attribute used to define the type of the ressource
-	 * random_ capacity : Random attribute used to define the final capacity of the ressource
-	 */
-	private static final Random random_type = new Random();
-	private static final Random random_capacity = new Random();
-	
+
 	/**
 	 * MIN_CAPACITY : Constant of the minimum value for a capacity
 	 * MAX_CAPACITY : Constant of the maximum for a capacity
@@ -37,33 +29,33 @@ public class Ressource {
 	 */
 	private static final int MIN_TYPE = 0;
 	private static final int MAX_TYPE = 2;
+	
 	/*
-	 * Constructor Ressource
+	 * Image size
 	 */
+	private final int HEIGHT_IMG = 600;
+	private final int WIDTH_IMG = 650;
+	
 	public Ressource() {
-		init_type();
+		super(init_type());
 		init_capacity();
-		init_coordinates();
 	}
 	
 	/*
 	 * Method init_type() : Initialize the specific type of the ressource thanks to the Enum TypeRessource
 	 * We use a random number between 0 and 2 to define the type
 	 */
-	private void init_type() {
-		int v = random_type.nextInt((MAX_TYPE - MIN_TYPE) + MIN_TYPE);
+	public static TypeElement init_type() {
+		int v = new Random().nextInt((MAX_TYPE - MIN_TYPE + 1) + MIN_TYPE);
 		switch(v) {
 		case 0 :
-			type = TypeRessource.PICKLE;
-			break;
+			return TypeElement.PICKLE;
 		case 1 : 
-			type = TypeRessource.COCKTAIL;
-			break;
+			return TypeElement.COCKTAIL;
 		case 2 : 
-			type = TypeRessource.POOP;
-			break;
-		default:
-			break;
+			return TypeElement.POOP;
+		default :
+			return null;
 		}
 	}
 	/*
@@ -71,45 +63,41 @@ public class Ressource {
 	 * if the type is "poop" then the capacity will be divided by 2
 	 */
 	private void init_capacity() {
-		if(this.type == TypeRessource.POOP)
-			this.capacity = random_capacity.nextInt((MAX_CAPACITY - MIN_CAPACITY) + MIN_CAPACITY) / 2;
+		if(getElementType() == TypeElement.POOP)
+			this.capacity = new Random().nextInt((MAX_CAPACITY - MIN_CAPACITY) + MIN_CAPACITY) / 2;
 		else
-			this.capacity = random_capacity.nextInt((MAX_CAPACITY - MIN_CAPACITY) + MIN_CAPACITY);
+			this.capacity = new Random().nextInt((MAX_CAPACITY - MIN_CAPACITY) + MIN_CAPACITY);
 	}
 	
-	private void init_coordinates() {
-		this.coordinates = new Point();
-	}
-	/**
-	 * Method getCapacity() : return the remain capacity of the ressource
-	 * @return capacity
-	 */
-	public int getCapacity() {
-		return capacity;
+	@Override
+	public Point randomCoordinate() {
+		return (new Point (
+				(int) (100 + (View.widthBackground - 100 - 50)*new Random().nextDouble()),
+				(int) (100 + (View.heigthBackground - 200)*new Random().nextDouble())) );
 	}
 	
 	/*
 	 * Method decrease : Decrease the value of the capacity
 	 * @param int
 	 */
-	public void decrease(int value) {
-		this.capacity -= value;
+	public void decrease() {
+		this.capacity --;
 	}
 	
 	/*
-	 * Method getCoordinates : return the current coordinates of the ressource on the map
-	 * @return coordinates
+	 * Getters and setters
 	 */
-	public Point getCoordinates() {
-		return this.coordinates;
+	
+	public int getCapacity() {
+		return capacity;
 	}
 
-	/*
-	 * Method getTypeRessource : return the specific type of the ressource
-	 * @return typeRessource
-	 */
-	public TypeRessource getTypeRessource() {
-		return this.type;
+	public int getHEIGHT_IMG() {
+		return HEIGHT_IMG;
 	}
-	
+
+	public int getWIDTH_IMG() {
+		return WIDTH_IMG;
+	}
+
 }

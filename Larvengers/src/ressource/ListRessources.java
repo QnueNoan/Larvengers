@@ -1,24 +1,26 @@
 package ressource;
 
+import java.awt.Color;
+import java.awt.Graphics;
+import java.lang.annotation.ElementType;
 import java.util.ArrayList;
 
-public class ListRessources {
-	private ArrayList<Ressource> ressources;
+import element.ListElements;
+import element.TypeElement;
+import ressource.Ressource;
+
+public class ListRessources extends ListElements<Ressource>{
+	/*
+	 * MAX_RESSOURCES : Maximum constant that the list is allowed to contain
+	 */
+	private static final int MAX_RESSOURCES = 20;
+	
+	private static final int TIMER_DISPLAY_RESSOURCE = 10000;
 	
 	
 	public ListRessources() {
-		this.ressources = new ArrayList<Ressource>();
+		super (TIMER_DISPLAY_RESSOURCE, MAX_RESSOURCES);
+		addElements(TypeElement.RESSOURCE);
 	}
-	
-	private void addRessources() {
-		//ressources.add();
-	}
-	
-	/*
-	 * Method getRessources : return the current ressources that are going to be displayed on the map
-	 * @return ressources
-	 */
-	public ArrayList<Ressource> getRessources() {
-		return this.ressources;
-	}
+
 }
