@@ -82,7 +82,7 @@ public class Ressource extends Element{
 	public Point randomCoordinate() {
 		return (new Point (
 				(int) (100 + (View.widthBackground - 100 - 50)*new Random().nextDouble()),
-				(int) (100 + (View.heigthBackground - 200)*new Random().nextDouble())) );
+				(int) (100 + (View.heigthBackground - 300)*new Random().nextDouble())) );
 	}
 	
 	/*

@@ -41,18 +41,17 @@ public abstract class ListElements<T extends Element> {
 					if(elements.size() <= MAX_ELEMENTS) {
 						switch(te) {
 						case RESSOURCE :
-							// TODO Ressource generation
-							/*while (true) {
+							while (true) {
 								Ressource r = new Ressource();
-								if (Model.isEmpty(r)) {
-									System.out.println("valide");
+								//if (!isElementInArea(r.coordinates.x, r.coordinates.y, r.width, r.heigth)) {
 									elements.add((T) new Ressource());
 									break;
-								}
-							}*/
+								//}
+							}
 							break;
-						case LARVA : 
-							elements.add((T) new Larva());
+						case LARVA :
+							if (!isElementInArea(100, 550, 100, 100))
+								elements.add((T) new Larva());
 							break;
 						}
 					}
@@ -79,12 +78,27 @@ public abstract class ListElements<T extends Element> {
 	 */
 	public T getClickedElement (Point click) {
 		for (int i=0; i<elements.size(); i++) {
-			if (click.x >= elements.get(i).coordinates.x && click.x <= elements.get(i).coordinates.x+elements.get(i).width &&
-				click.y >= elements.get(i).coordinates.y && click.y <= elements.get(i).coordinates.y+elements.get(i).heigth) {
+			if (click.x >= elements.get(i).coordinates.x && click.x <= elements.get(i).coordinates.x+elements.get(i).width+15 &&
+				click.y >= elements.get(i).coordinates.y && click.y <= elements.get(i).coordinates.y+elements.get(i).heigth+15) {
 				return elements.get(i);
 			}
 		}
 		return null;
+	}
+	
+	// Check is there is, at least, 1 elements (of the same type) in the area
+	public boolean isElementInArea (int x, int y, int width, int height) {
+		width = width/2;
+		height = height/2;
+		for (Element e : elements) {
+			System.out.println((Math.sqrt((x+width-e.getCoordinates().x)*(x+width-e.getCoordinates().x) + 
+					(y+height-e.getCoordinates().y)*(y+height-e.getCoordinates().y)))); 
+			if ( (Math.sqrt((x+width-e.getCoordinates().x)*(x+width-e.getCoordinates().x) + 
+					(y+height-e.getCoordinates().y)*(y+height-e.getCoordinates().y))) <= 70.0) {
+				return true;
+			}
+		}
+		return false;
 	}
     
     /*

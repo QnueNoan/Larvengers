@@ -41,11 +41,11 @@ public class Larva extends Unit{
 		cocktailDrunk = 0;
 		larvaState = 0;
 	}
-	
+
 	@Override
 	protected Point randomCoordinate() {
-		return (new Point ( (int)(Math.random() * ((View.widthBackground-width - 0) + 1)) + 0,
-				(int)(Math.random() * ((View.heigthBackground-heigth - 0) + 1)) + 0));
+		return (new Point ( (int)(Math.random() * ((200-width - 100) + 1)) + 100,
+				(int)(Math.random() * ((650-heigth - 550) + 1)) + 550));
 	}
 	
 	/*
@@ -59,12 +59,18 @@ public class Larva extends Unit{
 	}
 	
 	@Override
-	protected void action(Element bufferedElement) {
+	/*
+	 * Do all the possible actions for the larva
+	 */
+	protected boolean action(Element bufferedElement) {
 		if (bufferedElement.getElementType() == TypeElement.PICKLE ||
 				bufferedElement.getElementType() == TypeElement.COCKTAIL ||
 				bufferedElement.getElementType() == TypeElement.POOP) {
 			eatRessources((Ressource) bufferedElement);
+			this.setTargetedLocation(this.coordinates);
+			return true;
 		}
+		return false;
 	}
 	
 	/*

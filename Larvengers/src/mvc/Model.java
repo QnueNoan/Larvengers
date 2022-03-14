@@ -41,32 +41,6 @@ public class Model {
 	}
 	
 	/*
-	 * Check if there is another element in the Element e area
-	 */
-	public static boolean isEmpty (Element e) {
-		// If the element cross a larva 
-		for (Larva l : larvas.getElements()) {
-			if ( (e.getCoordinates().x + e.width < l.getCoordinates().x && e.getCoordinates().y + e.heigth < l.getCoordinates().y) ||
-					(e.getCoordinates().x > l.getCoordinates().x+l.width && e.getCoordinates().y+e.heigth < l.getCoordinates().y) ||
-					(e.getCoordinates().x+e.width < l.getCoordinates().x && e.getCoordinates().y > l.getCoordinates().y+l.heigth) ||
-					(e.getCoordinates().x > l.getCoordinates().x+l.width && e.getCoordinates().y > l.getCoordinates().y+l.heigth) ) {
-				return false;
-			}
-		}
-		
-		// If the element cross a ressource
-		for (Ressource r : ressources.getElements()) {
-			if ( (e.getCoordinates().x + e.width < r.getCoordinates().x && e.getCoordinates().y + e.heigth < r.getCoordinates().y) ||
-					(e.getCoordinates().x > r.getCoordinates().x+r.width && e.getCoordinates().y+e.heigth < r.getCoordinates().y) ||
-					(e.getCoordinates().x+e.width < r.getCoordinates().x && e.getCoordinates().y > r.getCoordinates().y+r.heigth) ||
-					(e.getCoordinates().x > r.getCoordinates().x+r.width && e.getCoordinates().y > r.getCoordinates().y+r.heigth) ) {
-				return false;
-			}
-		}
-		return true;
-	}
-	
-	/*
 	 * Getters and setters
 	 */
 

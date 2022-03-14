@@ -2,6 +2,7 @@ package unit;
 
 import java.awt.Image;
 import java.awt.Point;
+import java.util.concurrent.TimeUnit;
 
 import javax.swing.ImageIcon;
 
@@ -25,7 +26,7 @@ public abstract class Unit extends Element{
 	/*
 	 * Constant for the range
 	 */
-	public static int RANGE = 15;
+	public static int RANGE = 50;
 	
 	/*
 	 * Element focused by the Unit 
@@ -45,9 +46,9 @@ public abstract class Unit extends Element{
 	}
 	
 	/*
-	 * Do an action on the bufferedElement
+	 * Do all the possible things for the bufferedElement
 	 */
-	protected abstract void action(Element bufferedElement);
+	protected abstract boolean action(Element bufferedElement);
 	
 	/*
 	 * Change the position of the unit to be "newPosition"
@@ -70,6 +71,18 @@ public abstract class Unit extends Element{
 	 */
 	@Override
 	public void actualizeElement() {
+		if (bufferedElement!=null && bufferedElementIsInRange()) {
+			boolean realize = action(bufferedElement);
+			if (realize)
+				try {
+					TimeUnit.SECONDS.sleep(1);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+			}
+		
 		if (targetedLocation != null) {
 			double distance = Math.sqrt((targetedLocation.y - coordinates.y) * (targetedLocation.y - coordinates.y) 
 					+ (targetedLocation.x - coordinates.x) * (targetedLocation.x - coordinates.x));
@@ -84,18 +97,12 @@ public abstract class Unit extends Element{
 				coordinates.x += (int)(targetedLocation.x - coordinates.x) / speedRatio;
 				coordinates.y += (int)(targetedLocation.y - coordinates.y) / speedRatio;
 			}
-		}
-		if (bufferedElement!=null && bufferedElementIsInRange()) {
-			action(bufferedElement);
-		}		
+		}	
 	}
 	
 	// check if the Element in the unit's buffer is in its range
 	public boolean bufferedElementIsInRange() {
-		if ( Math.sqrt((bufferedElement.getCoordinates().x-coordinates.x)*(bufferedElement.getCoordinates().x-coordinates.x) + (bufferedElement.getCoordinates().y-coordinates.y)*(bufferedElement.getCoordinates().y-coordinates.y)) <= range) {
-			return true;
-		}
-		else return false;
+		return (Math.sqrt((bufferedElement.getCoordinates().x-coordinates.x)*(bufferedElement.getCoordinates().x-coordinates.x) + (bufferedElement.getCoordinates().y-coordinates.y)*(bufferedElement.getCoordinates().y-coordinates.y)) <= range);
 	}
 	
 	/*
@@ -108,7 +115,8 @@ public abstract class Unit extends Element{
 	public void setHealth(int health) {
 		this.health = health;
 	}
-
+	// d'ailleurs t'as archi win wsh
+	// son regard quand tt o tablo  douxx jesus 
 	public int getAttackPoint() {
 		return attackPoint;
 	}

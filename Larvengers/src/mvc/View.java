@@ -70,6 +70,7 @@ public class View extends JPanel{
 	 */
 	public void paintBackground(Graphics g) {
 		g.drawImage(this.imgBackground, 0, 0, widthBackground, heigthBackground, null);
+		g.drawRect(100, 550, 100, 100);
 	}
 	
 	/*

@@ -24,8 +24,8 @@ public class Ennemy extends Unit{
 	}	
 	
 	@Override
-	protected void action(Element bufferedElement) {
+	protected boolean action(Element bufferedElement) {
 		// TODO Auto-generated method stub
-		
+		return true;
 	}
 }
