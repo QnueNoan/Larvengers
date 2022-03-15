@@ -1,18 +1,7 @@
 package unit;
 
-import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.Label;
-import java.awt.List;
-import java.util.ArrayList;
-
-import javax.swing.ImageIcon;
-
-import element.Element;
 import element.ListElements;
 import element.TypeElement;
-import ressource.Ressource;
-import unit.Larva;
 
 public class ListLarvas extends ListElements<Larva>{
 	

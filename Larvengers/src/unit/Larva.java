@@ -1,13 +1,9 @@
 package unit;
 
-import java.awt.Image;
 import java.awt.Point;
-
-import javax.swing.ImageIcon;
 
 import element.Element;
 import element.TypeElement;
-import mvc.View;
 import ressource.Ressource;
 
 public class Larva extends Unit{

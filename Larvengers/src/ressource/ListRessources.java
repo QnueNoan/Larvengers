@@ -1,14 +1,9 @@
 package ressource;
 
-import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.Point;
-import java.lang.annotation.ElementType;
-import java.util.ArrayList;
 
 import element.ListElements;
 import element.TypeElement;
-import ressource.Ressource;
 
 public class ListRessources extends ListElements<Ressource>{
 	/*

@@ -1,31 +1,20 @@
 package mvc;
 
-import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.Image;
-import java.util.ArrayList;
-
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
-import javax.swing.JPanel;
+import javax.swing.JFrame;
 
 import element.*;
+import player.PlayerPanel;
 import ressource.ListRessources;
-import ressource.Ressource;
-import unit.Larva;
 import unit.ListLarvas;
 
-public class View extends JPanel{
+public class View extends JFrame{
 	/*
 	 * width and length of the window
 	 */
 	public static int WIDTH = 1000;
 	public static int HEIGTH = 700;
-	/*
-	 * the background image
-	 */
-	private ImageIcon iconBackground;
-	private Image imgBackground;
 	/*
 	 * width and length of the board game
 	 */
@@ -38,51 +27,41 @@ public class View extends JPanel{
 	public ListRessources ressources;
 	public ListLarvas larvas;
 	
+	private ElementPanel gamePanel;
+	private PlayerPanel playerPanel;
+	
+	private Control control;
+	
 	/*
 	 * constructor of the class
 	 */
 	public View() {
-		super();
-		this.iconBackground = new ImageIcon(getClass().getResource("/assets/Bg.jpg"));
-		this.imgBackground = this.iconBackground.getImage();
-		
-		//ResizeImg.changeSize(inImg, outImg, width, height);
-		this.setFocusable(true);
-		this.requestFocusInWindow();
-		(new Thread() {
-			@Override
-			public synchronized void run() {
-				while (true) {					
-					revalidate();
-					repaint();
-					try {
-						Thread.sleep(41);
-					} catch(Exception e) {e.printStackTrace();}
-				}
-				
-			}
-			
-		}).start();
-		
+		super();		
 	}
-	/*
-	 * this function helps to paint the component of the game
+	
+	/**
+	 * This function will set all the features about the window
 	 */
-	public void paintBackground(Graphics g) {
-		g.drawImage(this.imgBackground, 0, 0, widthBackground, heigthBackground, null);
-		g.drawRect(100, 550, 100, 100);
+	public void setWindow() {
+		setTitle("THE FLOOR IS LARVA");
+		setSize(WIDTH, HEIGTH);
+		setLocationRelativeTo(null);
+		setResizable(false);
+		setAlwaysOnTop(true);
+		setLayout(null);
+		setPanels();
+		add(this.gamePanel);
+		add(this.playerPanel);
+		setVisible(true);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	
 	/*
-	 * Paint the different parts of the game
-	 * @Override
+	 * This function configures all the panel features about the area where the game will be displayed
 	 */
-	public void paint(Graphics g) {
-		// TODO Auto-generated method stub
-		super.paint(g);
-		paintBackground(g);
-		ressources.paintElements(g);
-		larvas.paintElements(g);
+	private void setPanels() {
+		gamePanel = new ElementPanel();
+		playerPanel = new PlayerPanel();
 	}
 	
 	/*
@@ -121,4 +100,15 @@ public class View extends JPanel{
 		View.heigthBackground = lengthBackground;
 	}
 	
+	public void setControl(Control c) {
+		this.control = c;
+	}
+	
+	public ElementPanel getGamePanel() {
+		return this.gamePanel;
+	}
+	
+	public PlayerPanel getPlayerPanel() {
+		return this.playerPanel;
+	}
 }

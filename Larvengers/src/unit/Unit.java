@@ -1,10 +1,8 @@
 package unit;
 
-import java.awt.Image;
 import java.awt.Point;
 import java.util.concurrent.TimeUnit;
 
-import javax.swing.ImageIcon;
 
 import element.Element;
 import element.TypeElement;

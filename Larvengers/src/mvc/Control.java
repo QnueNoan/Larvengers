@@ -3,12 +3,6 @@ package mvc;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.lang.annotation.ElementType;
-
-import element.TypeElement;
-import ressource.ListRessources;
-import unit.Larva;
-import unit.ListLarvas;
 import unit.Unit;
 
 public class Control implements MouseListener{
@@ -86,6 +80,10 @@ public class Control implements MouseListener{
 
 	public void setModel(Model model) {
 		this.model = model;
+	}
+	
+	public Unit getBufferedUnit() {
+		return this.bufferedUnit;
 	}
 }
 
