@@ -29,7 +29,7 @@ public class ElementPanel extends JPanel{
 	private static final int height = View.heigthBackground;
 	
 	public ElementPanel() {
-		this.iconBackground = new ImageIcon(getClass().getResource("/assets/Bg.jpg"));
+		this.iconBackground = new ImageIcon(getClass().getResource("/assets/Fond.jpg"));
 		this.imgBackground = this.iconBackground.getImage();
 		
 		setPanel();

@@ -61,19 +61,19 @@ public abstract class Element {
 		elementType = t;
 		switch(t) {
 		case PICKLE :
-			this.spriteTmp = new ImageIcon(getClass().getResource("/assets/berry_bush.png"));
+			this.spriteTmp = new ImageIcon(getClass().getResource("/assets/bush_pickle.png"));
 			sprite = this.spriteTmp.getImage();
 			width = 50;
 			heigth = 50;
 			break;
 		case COCKTAIL : 
-			this.spriteTmp = new ImageIcon(getClass().getResource("/assets/berry_bush.png"));
+			this.spriteTmp = new ImageIcon(getClass().getResource("/assets/bush_cocktail.png"));
 			sprite = this.spriteTmp.getImage();
 			width = 50;
 			heigth = 50;
 			break;
 		case POOP : 
-			this.spriteTmp = new ImageIcon(getClass().getResource("/assets/berry_bush.png"));
+			this.spriteTmp = new ImageIcon(getClass().getResource("/assets/bush_poop.png"));
 			this.sprite = this.spriteTmp.getImage();
 			width = 50;
 			heigth = 50;
@@ -85,10 +85,10 @@ public abstract class Element {
 			heigth = 50;
 			break;
 		case COCOON : 
-			spriteTmp = new ImageIcon(getClass().getResource(""));
+			spriteTmp = new ImageIcon(getClass().getResource("/assets/cocoon.png"));
 			sprite = this.spriteTmp.getImage();
-			width = 0;
-			heigth = 0;
+			width = 50;
+			heigth = 50;
 			break;
 		case BUTTERFLY : 
 			spriteTmp = new ImageIcon(getClass().getResource(""));

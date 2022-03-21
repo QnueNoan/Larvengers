@@ -4,6 +4,8 @@ import java.awt.Point;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import javax.swing.ImageIcon;
+
 import element.Element;
 import element.TypeElement;
 import ressource.Ressource;
@@ -63,9 +65,11 @@ public class Larva extends Unit{
 	public void evolve () {
 		if (larvaState == 0 && picklesEaten >= picklesToEvolve && cocktailDrunk >= cocktailToEvolve) {
 			larvaState = 1;
+			this.setElementType(TypeElement.COCOON);
 			setHealth(100);
 			setSpeed(0);
-			timerBeforeButterfly.schedule(task, 60000);
+			timerBeforeButterfly.schedule(task, 6000);
+			
 		}
 	}
 	
