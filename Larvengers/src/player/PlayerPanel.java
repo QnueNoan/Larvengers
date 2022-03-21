@@ -125,7 +125,7 @@ public class PlayerPanel extends JPanel{
 		hpBar.setValue((larva.getHealth() * 10));
 		hpBar.setStringPainted(true); 
 		hpBar.setForeground(Color.RED);
-		hpBar.setSize(100, 15);
+		hpBar.setSize(200, 15);
 		this.add(hpBar);
 		
 		
