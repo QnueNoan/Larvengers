@@ -61,11 +61,12 @@ public class Larva extends Unit{
 			TimerTask timeoutCocoon = new TimerTask() {
 				public void run()
 			      {
+					setElementType(TypeElement.BUTTERFLY);
 			        setLarvaState(2);
 			        setSpeed(1);
 			      }
 			};
-			timerBeforeButterfly.schedule(timeoutCocoon, 6000);
+			timerBeforeButterfly.schedule(timeoutCocoon, 60000);
 		}
 	}
 	
