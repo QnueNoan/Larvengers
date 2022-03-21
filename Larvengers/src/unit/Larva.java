@@ -1,6 +1,8 @@
 package unit;
 
 import java.awt.Point;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import element.Element;
 import element.TypeElement;
@@ -31,11 +33,22 @@ public class Larva extends Unit{
 	public static int health = 100;
 	public static int speed = 5;
 	
+	private Timer timerBeforeButterfly;
+	private TimerTask task;
+	
 	public Larva () {
 		super (health, 1, speed, TypeElement.LARVA);
 		picklesEaten = 0;
 		cocktailDrunk = 0;
 		larvaState = 0;
+		timerBeforeButterfly = new Timer();
+		task = new TimerTask() {
+			public void run()
+		      {
+				System.out.println("PASSAGE AU DEUXIME NIVEAU");
+		        setLarvaState(2);
+		      }
+		};
 	}
 
 	@Override
@@ -48,11 +61,14 @@ public class Larva extends Unit{
 	 * Evolve the larva into cocoon if the number of ressources eaten is enough
 	 */
 	public void evolve () {
-		if (larvaState == 0 && picklesEaten == picklesToEvolve && cocktailDrunk == cocktailToEvolve) {
+		if (larvaState == 0 && picklesEaten >= picklesToEvolve && cocktailDrunk >= cocktailToEvolve) {
 			larvaState = 1;
 			setHealth(100);
+			setSpeed(0);
+			timerBeforeButterfly.schedule(task, 60000);
 		}
 	}
+	
 	
 	@Override
 	/*

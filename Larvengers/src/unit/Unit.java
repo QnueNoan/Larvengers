@@ -61,7 +61,7 @@ public abstract class Unit extends Element{
 	 * @param opponent : unit attacked
 	 */
 	protected void attack (Unit opponent) {
-		opponent.setHealth(opponent.getHealth()-this.getAttackPoint());
+		opponent.setHealth(opponent.getHealth() - this.getAttackPoint());
 	}
 	
 	/*
@@ -75,13 +75,12 @@ public abstract class Unit extends Element{
 				try {
 					TimeUnit.SECONDS.sleep(1);
 				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				
 			}
 		
-		if (targetedLocation != null) {
+		if (speed > 0 && targetedLocation != null) {
 			double distance = Math.sqrt((targetedLocation.y - coordinates.y) * (targetedLocation.y - coordinates.y) 
 					+ (targetedLocation.x - coordinates.x) * (targetedLocation.x - coordinates.x));
 			double speedRatio = (distance/speed);

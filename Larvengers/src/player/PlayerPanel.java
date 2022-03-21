@@ -1,6 +1,7 @@
 package player;
 
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -10,6 +11,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JProgressBar;
 
 import element.TypeElement;
 import unit.Larva;
@@ -50,20 +52,29 @@ public class PlayerPanel extends JPanel{
 	private static final int X_HP = 15;
 	private static final int Y_HP = 300;
 	
-	private static final int X_SPEED = 15;
-	private static final int Y_SPEED = 315;
-	
 	private static final int X_PICKLES = 15;
-	private static final int Y_PICKLES = 330;
+	private static final int Y_PICKLES = 350;
 	
 	private static final int X_COCKTAILS = 15;
-	private static final int Y_COCKTAILS = 345;
+	private static final int Y_COCKTAILS = 400;
 	
+	private static final int X_HPBAR = 15;
+	private static final int Y_HPBAR = 330;
+	
+	private static final int X_PICKLESBAR = 15;
+	private static final int Y_PICKLESBAR = 380;
+	
+	private static final int X_COCKTAILSBAR = 15;
+	private static final int Y_COCKTAILSBAR = 430;
 	private ImageIcon background;
 	private Image imgBackground;
 	
 	private Control control;
-	private JLabel hp, speed, pickles, cocktails;
+	private JLabel hp, pickles, cocktails;
+	private JProgressBar hpBar, picklesBar, cocktailsBar;
+	
+	private static final int widthBar = 100;
+	private static final int heightBar = 15;
 	
 	public PlayerPanel() {
 		this.background = new ImageIcon(getClass().getResource("/assets/Bg.jpg"));
@@ -94,35 +105,57 @@ public class PlayerPanel extends JPanel{
 	}
 	
 	private void addInformationsUnit(Larva larva) {
-		if(hp != null && speed != null && pickles != null && cocktails != null) {
+		if(hp != null && pickles != null && cocktails != null && hpBar != null && picklesBar != null && cocktailsBar != null) {
 			this.remove(hp);
-			this.remove(speed);
 			this.remove(pickles);
 			this.remove(cocktails);
+			this.remove(hpBar);
+			this.remove(picklesBar);
+			this.remove(cocktailsBar);
 		}
+		
 		hp = new JLabel();
-		hp.setText("Hp : " + larva.getHealth());
+		hp.setText("Hp");
 		hp.setBounds(X_HP, Y_HP, width_LABEL, height_LABEL);
 		hp.setVisible(true);
 		this.add(hp);
 		
-		speed = new JLabel();
-		speed.setText("Speed : " + larva.getSpeed());
-		speed.setBounds(X_SPEED, Y_SPEED, width_LABEL, height_LABEL);
-		speed.setVisible(true);
-		this.add(speed);
+		hpBar = new JProgressBar(0, 100);
+		hpBar.setBounds(X_HPBAR, Y_HPBAR, width_LABEL, height_LABEL);
+		hpBar.setValue((larva.getHealth() * 10));
+		hpBar.setStringPainted(true); 
+		hpBar.setForeground(Color.RED);
+		hpBar.setSize(100, 15);
+		this.add(hpBar);
+		
 		
 		pickles = new JLabel();
-		pickles.setText("Pickles : " + larva.getPicklesEaten() + "/"+ larva.getPicklesToEvolve());
+		pickles.setText("Pickles");
 		pickles.setBounds(X_PICKLES, Y_PICKLES, width_LABEL, height_LABEL);
 		pickles.setVisible(true);
 		this.add(pickles);
 		
+		picklesBar = new JProgressBar(0, 100);
+		picklesBar.setBounds(X_PICKLESBAR, Y_PICKLESBAR, width_LABEL, height_LABEL);
+		picklesBar.setValue((larva.getPicklesEaten() * 10));
+		picklesBar.setStringPainted(true); 
+		picklesBar.setForeground(Color.GREEN);
+		picklesBar.setSize(200, 15);
+		this.add(picklesBar);
+		
 		cocktails = new JLabel();
-		cocktails.setText("Cocktails : " + larva.getCocktailDrunk() + "/"+ larva.getCocktailToEvolve());
+		cocktails.setText("Cocktails");
 		cocktails.setBounds(X_COCKTAILS, Y_COCKTAILS, width_LABEL, height_LABEL);
 		cocktails.setVisible(true);
 		this.add(cocktails);
+		
+		cocktailsBar = new JProgressBar(0, 100);
+		cocktailsBar.setBounds(X_COCKTAILSBAR, Y_COCKTAILSBAR, width_LABEL, height_LABEL);
+		cocktailsBar.setValue((larva.getCocktailDrunk() * 10));
+		cocktailsBar.setStringPainted(true); 
+		cocktailsBar.setForeground(Color.MAGENTA);
+		cocktailsBar.setSize(200, 15);
+		this.add(cocktailsBar);
 	}
 	/*
 	 * This function allows to initialize the player's control panel
@@ -196,7 +229,6 @@ public class PlayerPanel extends JPanel{
             		Larva larva = (Larva) control.getBufferedUnit();
             		larva.evolve();
             		control.getBufferedUnit().setBufferedElement(larva);
-            		System.out.println("EVOLUTION " + larva.getLarvaState());
             	}
             }
         });
