@@ -4,8 +4,6 @@ import java.awt.Point;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import javax.swing.ImageIcon;
-
 import element.Element;
 import element.TypeElement;
 import ressource.Ressource;
@@ -36,21 +34,12 @@ public class Larva extends Unit{
 	public static int speed = 5;
 	
 	private Timer timerBeforeButterfly;
-	private TimerTask task;
 	
 	public Larva () {
 		super (health, 1, speed, TypeElement.LARVA);
 		picklesEaten = 0;
 		cocktailDrunk = 0;
 		larvaState = 0;
-		timerBeforeButterfly = new Timer();
-		task = new TimerTask() {
-			public void run()
-		      {
-				System.out.println("PASSAGE AU DEUXIME NIVEAU");
-		        setLarvaState(2);
-		      }
-		};
 	}
 
 	@Override
@@ -68,8 +57,15 @@ public class Larva extends Unit{
 			this.setElementType(TypeElement.COCOON);
 			setHealth(100);
 			setSpeed(0);
-			timerBeforeButterfly.schedule(task, 6000);
-			
+			timerBeforeButterfly = new Timer();
+			TimerTask timeoutCocoon = new TimerTask() {
+				public void run()
+			      {
+			        setLarvaState(2);
+			        setSpeed(1);
+			      }
+			};
+			timerBeforeButterfly.schedule(timeoutCocoon, 6000);
 		}
 	}
 	
