@@ -9,6 +9,7 @@ import java.util.Arrays;
 import javax.swing.ImageIcon;
 
 import mvc.Model;
+import ressource.ListRessources;
 import ressource.Ressource;
 import unit.Larva;
 
@@ -43,10 +44,10 @@ public abstract class ListElements<T extends Element> {
 						case RESSOURCE :
 							while (true) {
 								Ressource r = new Ressource();
-								//if (!isElementInArea(r.coordinates.x, r.coordinates.y, r.width, r.heigth)) {
+								if (!isElementInArea(r.coordinates.x, r.coordinates.y, r.width, r.heigth)) {
 									elements.add((T) new Ressource());
 									break;
-								//}
+								}
 							}
 							break;
 						case LARVA :
@@ -55,6 +56,13 @@ public abstract class ListElements<T extends Element> {
 							break;
 						}
 					}
+					
+					// remove ressource which capacity is 0
+					if (te == TypeElement.RESSOURCE) elements.removeIf((T r) -> ((Ressource)r).getCapacity() < 1);
+					
+					// remove larvas which health is 0
+					else if (te == TypeElement.LARVA) elements.removeIf((T l) -> ((Larva)l).getHealth() < 1);
+					
 					try {
 						Thread.sleep(TIMER_DISPLAY_ELEMENT);
 					} catch(Exception e) {e.printStackTrace();}
@@ -91,8 +99,6 @@ public abstract class ListElements<T extends Element> {
 		width = width/2;
 		height = height/2;
 		for (Element e : elements) {
-			System.out.println((Math.sqrt((x+width-e.getCoordinates().x)*(x+width-e.getCoordinates().x) + 
-					(y+height-e.getCoordinates().y)*(y+height-e.getCoordinates().y)))); 
 			if ( (Math.sqrt((x+width-e.getCoordinates().x)*(x+width-e.getCoordinates().x) + 
 					(y+height-e.getCoordinates().y)*(y+height-e.getCoordinates().y))) <= 70.0) {
 				return true;

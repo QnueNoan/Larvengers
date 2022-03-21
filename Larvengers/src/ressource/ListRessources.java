@@ -16,9 +16,6 @@ public class ListRessources extends ListElements<Ressource>{
 	
 	public ListRessources() {
 		super (TIMER_DISPLAY_RESSOURCE, MAX_RESSOURCES);
-		this.getElements().add(new Ressource(TypeElement.PICKLE, new Point(50,30)));
-		this.getElements().add(new Ressource(TypeElement.COCKTAIL, new Point(200,30)));
-		this.getElements().add(new Ressource(TypeElement.POOP, new Point(400,30)));
 		addElements(TypeElement.RESSOURCE);
 	}
 

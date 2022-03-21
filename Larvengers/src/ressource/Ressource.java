@@ -73,7 +73,7 @@ public class Ressource extends Element{
 	 */
 	private void init_capacity() {
 		if(getElementType() == TypeElement.POOP)
-			this.capacity = new Random().nextInt((MAX_CAPACITY - MIN_CAPACITY) + MIN_CAPACITY) / 2;
+			this.capacity = 1;
 		else
 			this.capacity = new Random().nextInt((MAX_CAPACITY - MIN_CAPACITY) + MIN_CAPACITY);
 	}
@@ -96,12 +96,12 @@ public class Ressource extends Element{
 	/*
 	 * Change the state of the ressource depending of the modifications it receives
 	 */
+	Ressource waste;
 	@Override
 	public void actualizeElement() {
 		
-		//TODO do real suppression because this is disgusting (but easier to do some test)
-		if( this.capacity < 1)
-			this.setCoordinates(new Point (1000, 1000));
+		//Suppress the ressource if the capacity if negative.
+		
 	}
 	
 	/*
