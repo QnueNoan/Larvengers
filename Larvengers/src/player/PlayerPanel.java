@@ -66,15 +66,25 @@ public class PlayerPanel extends JPanel{
 	
 	private static final int X_COCKTAILSBAR = 15;
 	private static final int Y_COCKTAILSBAR = 430;
+	
+	/*
+	 * Width and length for all the progressBar
+	 */
+	private static final int widthBar = 200;
+	private static final int heightBar = 15;
+	
+	/*
+	 * Score made by the player
+	 */
+	private int score;
+	
 	private ImageIcon background;
 	private Image imgBackground;
 	
 	private Control control;
-	private JLabel hp, pickles, cocktails;
+	private JLabel scoreText, hp, pickles, cocktails;
 	private JProgressBar hpBar, picklesBar, cocktailsBar;
 	
-	private static final int widthBar = 100;
-	private static final int heightBar = 15;
 	
 	public PlayerPanel() {
 		this.background = new ImageIcon(getClass().getResource("/assets/Bg.jpg"));
@@ -85,6 +95,7 @@ public class PlayerPanel extends JPanel{
 			@Override
 			public synchronized void run() {
 				while (true) {
+					scoreText();
 					if(control != null && control.getBufferedUnit() != null) {
 						if(control.getBufferedUnit().getElementType() == TypeElement.LARVA) {
 							Larva larva = (Larva) control.getBufferedUnit();
@@ -102,6 +113,24 @@ public class PlayerPanel extends JPanel{
 			}
 			
 		}).start();
+	}
+	
+	private void scoreText() {
+		if(control != null) {
+			this.remove(scoreText);
+			score = 0;
+			for(Larva l : control.getModel().getLarvas().getElements()) {
+				if (l.getLarvaState() == 2) {
+					score += 1;
+				}
+			}
+		}
+		
+		scoreText = new JLabel();
+		scoreText.setText("Score : " + score);
+		scoreText.setBounds(10, 10, width_LABEL, height_LABEL);
+		scoreText.setVisible(true);
+		this.add(scoreText);
 	}
 	
 	private void addInformationsUnit(Larva larva) {
@@ -125,7 +154,7 @@ public class PlayerPanel extends JPanel{
 		hpBar.setValue((larva.getHealth() * 10));
 		hpBar.setStringPainted(true); 
 		hpBar.setForeground(Color.RED);
-		hpBar.setSize(200, 15);
+		hpBar.setSize(widthBar, heightBar);
 		this.add(hpBar);
 		
 		
@@ -140,7 +169,7 @@ public class PlayerPanel extends JPanel{
 		picklesBar.setValue((larva.getPicklesEaten() * 10));
 		picklesBar.setStringPainted(true); 
 		picklesBar.setForeground(Color.GREEN);
-		picklesBar.setSize(200, 15);
+		picklesBar.setSize(widthBar, heightBar);
 		this.add(picklesBar);
 		
 		cocktails = new JLabel();
@@ -154,7 +183,7 @@ public class PlayerPanel extends JPanel{
 		cocktailsBar.setValue((larva.getCocktailDrunk() * 10));
 		cocktailsBar.setStringPainted(true); 
 		cocktailsBar.setForeground(Color.MAGENTA);
-		cocktailsBar.setSize(200, 15);
+		cocktailsBar.setSize(widthBar, heightBar);
 		this.add(cocktailsBar);
 	}
 	/*
@@ -213,7 +242,7 @@ public class PlayerPanel extends JPanel{
 	}
 	
 	public void evolveToCocoonPossible(Larva larva) {
-		if (larva.getPicklesEaten() >= 10 && larva.getCocktailDrunk() >= 10) {
+		if (larva.getPicklesEaten() >= 10 && larva.getCocktailDrunk() >= 10 && larva.getLarvaState() == 0) {
 			evolveButton.setEnabled(true);
 			CocoonButtonClicked();
 		}
