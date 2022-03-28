@@ -12,7 +12,7 @@ public class ListLarvas extends ListElements<Larva>{
 	public static int MAX_LARVAS = 8;
 
 	public ListLarvas () {
-		super (TIMER_GEN_LARVAS, MAX_LARVAS);
-		addElements(TypeElement.LARVA);
+		super (TypeElement.LARVA, TIMER_GEN_LARVAS, MAX_LARVAS);
+		addElements();
 	}
 }

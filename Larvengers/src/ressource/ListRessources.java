@@ -15,8 +15,8 @@ public class ListRessources extends ListElements<Ressource>{
 	
 	
 	public ListRessources() {
-		super (TIMER_DISPLAY_RESSOURCE, MAX_RESSOURCES);
-		addElements(TypeElement.RESSOURCE);
+		super (TypeElement.RESSOURCE, TIMER_DISPLAY_RESSOURCE, MAX_RESSOURCES);
+		addElements();
 	}
 
 }
