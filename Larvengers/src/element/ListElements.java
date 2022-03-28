@@ -25,7 +25,10 @@ public abstract class ListElements<T extends Element> {
 	// Max elements stored
 	public static int MAX_ELEMENTS = 5;
 	
-	public ListElements (int timer, int maxElem) {
+	public TypeElement type;
+	
+	public ListElements (TypeElement te, int timer, int maxElem) {
+		type = te;
 		TIMER_DISPLAY_ELEMENT = timer;
 		MAX_ELEMENTS = maxElem;
 	}
@@ -34,13 +37,13 @@ public abstract class ListElements<T extends Element> {
 	 * add a new Element to elements list each TIMER_DISPLAY_RESSOURCE ms
 	 * add a new Element only if the size of elements is lower than MAX_ELEMNTS
 	 */
-	public void addElements (TypeElement te) {
+	public void addElements () {
 		(new Thread() {
 			@Override
 			public void run() {
 				while(true) {
 					if(elements.size() <= MAX_ELEMENTS) {
-						switch(te) {
+						switch(type) {
 						case RESSOURCE :
 							while (true) {
 								Ressource r = new Ressource();
@@ -58,10 +61,10 @@ public abstract class ListElements<T extends Element> {
 					}
 					
 					// remove ressource which capacity is 0
-					if (te == TypeElement.RESSOURCE) elements.removeIf((T r) -> ((Ressource)r).getCapacity() < 1);
+					if (type == TypeElement.RESSOURCE) elements.removeIf((T r) -> ((Ressource)r).getCapacity() < 1);
 					
 					// remove larvas which health is 0
-					else if (te == TypeElement.LARVA) elements.removeIf((T l) -> ((Larva)l).getHealth() < 1);
+					else if (type == TypeElement.LARVA) elements.removeIf((T l) -> ((Larva)l).getHealth() < 1);
 					
 					try {
 						Thread.sleep(TIMER_DISPLAY_ELEMENT);
