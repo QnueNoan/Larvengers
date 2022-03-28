@@ -27,7 +27,7 @@ public class View extends JFrame{
 	public ListRessources ressources;
 	public ListLarvas larvas;
 	
-	private GamePanel gamePanel;
+	private ElementPanel gamePanel;
 	private PlayerPanel playerPanel;
 	
 	private Control control;
@@ -60,7 +60,7 @@ public class View extends JFrame{
 	 * This function configures all the panel features about the area where the game will be displayed
 	 */
 	private void setPanels() {
-		gamePanel = new GamePanel();
+		gamePanel = new ElementPanel();
 		playerPanel = new PlayerPanel();
 	}
 	
@@ -104,7 +104,7 @@ public class View extends JFrame{
 		this.control = c;
 	}
 	
-	public GamePanel getGamePanel() {
+	public ElementPanel getGamePanel() {
 		return this.gamePanel;
 	}
 	

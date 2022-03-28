@@ -71,6 +71,7 @@ public abstract class Unit extends Element{
 	public void actualizeElement() {
 		if (bufferedElement!=null && bufferedElementIsInRange()) {
 			boolean realize = action(bufferedElement);
+			// put a cooldown on action like eating or attacking
 			if (realize)
 				try {
 					TimeUnit.SECONDS.sleep(1);
@@ -80,16 +81,18 @@ public abstract class Unit extends Element{
 				
 			}
 		
+		// If the unit can move and need to move
 		if (speed > 0 && targetedLocation != null) {
 			double distance = Math.sqrt((targetedLocation.y - coordinates.y) * (targetedLocation.y - coordinates.y) 
 					+ (targetedLocation.x - coordinates.x) * (targetedLocation.x - coordinates.x));
+			// number of pixel to move for the thread iteration
 			double speedRatio = (distance/speed);
-			double deltaX;
-			double deltaY;
+			// if the unit is very close to the objective, its position become the objective
 			if (speedRatio < 1) {
 				coordinates.x = targetedLocation.x;
 				coordinates.y = targetedLocation.y;
 			}
+			// otherwise move of the calculated distance with the speed 
 			else {
 				coordinates.x += (int)(targetedLocation.x - coordinates.x) / speedRatio;
 				coordinates.y += (int)(targetedLocation.y - coordinates.y) / speedRatio;

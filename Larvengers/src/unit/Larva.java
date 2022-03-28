@@ -33,6 +33,9 @@ public class Larva extends Unit{
 	public static int health = 100;
 	public static int speed = 5;
 	
+	/*
+	 * Time for the cocoon before becoming a butterfly
+	 */
 	private Timer timerBeforeButterfly;
 	
 	public Larva () {
@@ -43,6 +46,9 @@ public class Larva extends Unit{
 	}
 
 	@Override
+	/*
+	 * Generate random coordinate among the larva spawn point
+	 */
 	protected Point randomCoordinate() {
 		return (new Point ( (int)(Math.random() * ((200-width - 100) + 1)) + 100,
 				(int)(Math.random() * ((650-heigth - 550) + 1)) + 550));
@@ -58,6 +64,8 @@ public class Larva extends Unit{
 			setHealth(100);
 			setSpeed(0);
 			timerBeforeButterfly = new Timer();
+			
+			// When timer is finished, the cocoon become a butterfly
 			TimerTask timeoutCocoon = new TimerTask() {
 				public void run()
 			      {
@@ -76,10 +84,12 @@ public class Larva extends Unit{
 	 * Do all the possible actions for the larva
 	 */
 	protected boolean action(Element bufferedElement) {
+		// if the action of the larva was a ressource
 		if (bufferedElement.getElementType() == TypeElement.PICKLE ||
 				bufferedElement.getElementType() == TypeElement.COCKTAIL ||
 				bufferedElement.getElementType() == TypeElement.POOP) {
 			eatRessources((Ressource) bufferedElement);
+			// Move the larva towards the ressource
 			this.setTargetedLocation(this.coordinates);
 			return true;
 		}
@@ -99,10 +109,12 @@ public class Larva extends Unit{
 				    this.cocktailDrunk++;
 				    break;
 				case POOP:
+					// 50% chance to maximize the ressources eaten
 					if ( (int)(Math.random() * ((2 - 1) + 1)) + 1 == 1) {
 						picklesEaten=picklesToEvolve;
 						cocktailDrunk=cocktailToEvolve;
 					}
+					// or to minimize these
 					else {
 						picklesEaten = 0;
 						cocktailDrunk = 0;

@@ -26,6 +26,9 @@ public abstract class Element {
 	public ImageIcon spriteTmp;
 	public Image sprite;
 	
+	/*
+	 * At its creation, the element will refresh its state with a thread
+	 */
 	public Element (TypeElement t) {
 		initImage(t);
 		coordinates = randomCoordinate();
@@ -107,7 +110,7 @@ public abstract class Element {
 	
 	/*
 	 * Generate randomly the position of the element at its creation
-	 * @return the calculed Point
+	 * @return the calculated Point
 	 */
 	protected abstract Point randomCoordinate();
 

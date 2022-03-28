@@ -69,7 +69,7 @@ public class Ressource extends Element{
 	}
 	/*
 	 * Method init_capacity : Initialize the random capacity of the ressource
-	 * if the type is "poop" then the capacity will be divided by 2
+	 * if the type is "poop" then the capacity is 1
 	 */
 	private void init_capacity() {
 		if(getElementType() == TypeElement.POOP)
@@ -79,6 +79,10 @@ public class Ressource extends Element{
 	}
 	
 	@Override
+	/*
+	 * generate random coordinate among the playing area for new ressources
+	 * the ressources can't be generate at the bottom of the map (larva spawn)
+	 */
 	public Point randomCoordinate() {
 		return (new Point (
 				(int) (100 + (View.widthBackground - 100 - 50)*new Random().nextDouble()),
@@ -91,17 +95,6 @@ public class Ressource extends Element{
 	 */
 	public void decrease() {
 		this.capacity --;
-	}
-	
-	/*
-	 * Change the state of the ressource depending of the modifications it receives
-	 */
-	Ressource waste;
-	@Override
-	public void actualizeElement() {
-		
-		//Suppress the ressource if the capacity if negative.
-		
 	}
 	
 	/*
@@ -118,6 +111,12 @@ public class Ressource extends Element{
 
 	public int getWIDTH_IMG() {
 		return WIDTH_IMG;
+	}
+
+	@Override
+	public void actualizeElement() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

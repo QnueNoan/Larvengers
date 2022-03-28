@@ -25,6 +25,7 @@ public abstract class ListElements<T extends Element> {
 	// Max elements stored
 	public static int MAX_ELEMENTS = 5;
 	
+	// Type of the elements stored
 	public TypeElement type;
 	
 	public ListElements (TypeElement te, int timer, int maxElem) {
@@ -47,6 +48,7 @@ public abstract class ListElements<T extends Element> {
 						case RESSOURCE :
 							while (true) {
 								Ressource r = new Ressource();
+								// check if the ressource is in an area without others elements
 								if (!isElementInArea(r.coordinates.x, r.coordinates.y, r.width, r.heigth)) {
 									elements.add((T) new Ressource());
 									break;
@@ -54,6 +56,7 @@ public abstract class ListElements<T extends Element> {
 							}
 							break;
 						case LARVA :
+							// check if the larva spawning area is empty
 							if (!isElementInArea(100, 550, 100, 100))
 								elements.add((T) new Larva());
 							break;
@@ -89,6 +92,8 @@ public abstract class ListElements<T extends Element> {
 	 */
 	public T getClickedElement (Point click) {
 		for (int i=0; i<elements.size(); i++) {
+			
+			// If the coordinate of the click are inside the element hitbox (sprite)
 			if (click.x >= elements.get(i).coordinates.x && click.x <= elements.get(i).coordinates.x+elements.get(i).width+15 &&
 				click.y >= elements.get(i).coordinates.y && click.y <= elements.get(i).coordinates.y+elements.get(i).heigth+15) {
 				return elements.get(i);
@@ -101,7 +106,9 @@ public abstract class ListElements<T extends Element> {
 	public boolean isElementInArea (int x, int y, int width, int height) {
 		width = width/2;
 		height = height/2;
+		
 		for (Element e : elements) {
+			// Check the distance between the point in argument and the element
 			if ( (Math.sqrt((x+width-e.getCoordinates().x)*(x+width-e.getCoordinates().x) + 
 					(y+height-e.getCoordinates().y)*(y+height-e.getCoordinates().y))) <= 70.0) {
 				return true;

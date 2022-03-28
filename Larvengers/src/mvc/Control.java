@@ -31,6 +31,7 @@ public class Control implements MouseListener{
 	 * change the oval position at each click
 	 */
 	public void mouseClicked(MouseEvent e) {
+		
 		// White bar is included in the coordinates, 'real' origin is (7;30)
 		mouseClickedPosition = new Point(e.getX()-7,e.getY()-30);
 		
@@ -38,8 +39,11 @@ public class Control implements MouseListener{
 		if (model.getLarvas().getClickedElement(mouseClickedPosition) != null) {
 			bufferedUnit = model.getLarvas().getClickedElement(mouseClickedPosition);
 		}
+		
 		// If an unit is saved in the buffer, move it to the player click
 		else if (bufferedUnit != null) {
+			
+			// If the player clicked on a ressource
 			if (model.getRessources().getClickedElement(mouseClickedPosition) != null) {
 				bufferedUnit.setBufferedElement(model.getRessources().getClickedElement(mouseClickedPosition));
 				model.deplacement(new Point(model.getRessources().getClickedElement(mouseClickedPosition).getCoordinates()), bufferedUnit);
