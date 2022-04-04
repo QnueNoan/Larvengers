@@ -1,12 +1,11 @@
 package unit;
 
-import java.awt.Image;
 import java.awt.Point;
+import java.util.Timer;
+import java.util.TimerTask;
 
-import javax.swing.ImageIcon;
-
+import element.Element;
 import element.TypeElement;
-import mvc.View;
 import ressource.Ressource;
 
 public class Larva extends Unit{
@@ -22,8 +21,8 @@ public class Larva extends Unit{
 	
 	/*
 	 * Constant for evolution
-	 * picklesToEvolve : number of ressource "pickle" that the larve need to eat before evolving
-	 * cocktailToEvolve : number of ressource "coktail" that the larve need to eat before evolving
+	 * picklesToEvolve : number of ressource "pickle" that the larva need to eat before evolving
+	 * cocktailToEvolve : number of ressource "coktail" that the larva need to eat before evolving
 	 */
 	public static int picklesToEvolve = 10;
 	public static int cocktailToEvolve = 10;
@@ -34,34 +33,71 @@ public class Larva extends Unit{
 	public static int health = 100;
 	public static int speed = 5;
 	
+	private Timer timerBeforeButterfly;
+	private int timeLeftBeforeButterfly;
+	
 	public Larva () {
 		super (health, 1, speed, TypeElement.LARVA);
 		picklesEaten = 0;
 		cocktailDrunk = 0;
 		larvaState = 0;
 	}
-	
+
 	@Override
 	protected Point randomCoordinate() {
-		return (new Point ( (int)(Math.random() * ((View.widthBackground-width - 0) + 1)) + 0,
-				(int)(Math.random() * ((View.heigthBackground-heigth - 0) + 1)) + 0));
+		return (new Point ( (int)(Math.random() * ((200-width - 100) + 1)) + 100,
+				(int)(Math.random() * ((650-heigth - 550) + 1)) + 550));
 	}
 	
 	/*
 	 * Evolve the larva into cocoon if the number of ressources eaten is enough
 	 */
 	public void evolve () {
-		if (larvaState == 0 && picklesEaten == picklesToEvolve && cocktailDrunk == cocktailToEvolve) {
+		if (larvaState == 0 && picklesEaten >= picklesToEvolve && cocktailDrunk >= cocktailToEvolve) {
 			larvaState = 1;
+			this.setElementType(TypeElement.COCOON);
 			setHealth(100);
+			setSpeed(0);
+			timerBeforeButterfly = new Timer();
+			timeLeftBeforeButterfly = 0;
+			timerBeforeButterfly.scheduleAtFixedRate(new TimerTask() {
+				@Override
+				public void run() {
+					// TODO Auto-generated method stub
+				setTimeLeftBeforeButterfly(getTimeLeftBeforeButterfly() + 1);
+				if(getTimeLeftBeforeButterfly() >= 60) {
+					timerBeforeButterfly.cancel();
+					setElementType(TypeElement.BUTTERFLY);
+			        setLarvaState(2);
+			        setSpeed(1);
+				}
+				}
+				
+			}, 100,1000);
 		}
 	}
 	
+	
+	@Override
 	/*
-	 * 
+	 * Do all the possible actions for the larva
+	 */
+	protected boolean action(Element bufferedElement) {
+		if (bufferedElement.getElementType() == TypeElement.PICKLE ||
+				bufferedElement.getElementType() == TypeElement.COCKTAIL ||
+				bufferedElement.getElementType() == TypeElement.POOP) {
+			eatRessources((Ressource) bufferedElement);
+			this.setTargetedLocation(this.coordinates);
+			return true;
+		}
+		return false;
+	}
+	
+	/*
+	 * Decrease the ressource amount of 1, increase the 'RessourceType' eated by 1 and modify the larva stats
 	 */
 	public void eatRessources (Ressource r) {
-		if (this.larvaState != 1 && r.getCapacity()>1) {
+		if (this.larvaState != 1 && r.getCapacity()>=1) {
 			switch(r.getElementType()) {
 				case PICKLE:
 					this.picklesEaten++;
@@ -73,6 +109,10 @@ public class Larva extends Unit{
 					if ( (int)(Math.random() * ((2 - 1) + 1)) + 1 == 1) {
 						picklesEaten=picklesToEvolve;
 						cocktailDrunk=cocktailToEvolve;
+					}
+					else {
+						picklesEaten = 0;
+						cocktailDrunk = 0;
 					};
 					
 					break;
@@ -123,6 +163,13 @@ public class Larva extends Unit{
 
 	public static void setCocktailToEvolve(int cocktailToEvolve) {
 		Larva.cocktailToEvolve = cocktailToEvolve;
+	}
+	
+	public int getTimeLeftBeforeButterfly() {
+		return this.timeLeftBeforeButterfly;
+	}
+	public void setTimeLeftBeforeButterfly(int timeleftbeforebutterfly) {
+		this.timeLeftBeforeButterfly = timeleftbeforebutterfly;
 	}
 
 }

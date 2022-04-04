@@ -8,6 +8,8 @@ import java.util.Arrays;
 
 import javax.swing.ImageIcon;
 
+import mvc.Model;
+import ressource.ListRessources;
 import ressource.Ressource;
 import unit.Larva;
 
@@ -18,13 +20,13 @@ public abstract class ListElements<T extends Element> {
 	private ArrayList<T> elements = new ArrayList<>();
 	
 	// Timer for element generation
-	public static int TIMER_DISPLAY_RESSOURCE;
+	public static int TIMER_DISPLAY_ELEMENT;
 	
 	// Max elements stored
-	public static int MAX_ELEMENTS = 10;
+	public static int MAX_ELEMENTS = 5;
 	
 	public ListElements (int timer, int maxElem) {
-		TIMER_DISPLAY_RESSOURCE = timer;
+		TIMER_DISPLAY_ELEMENT = timer;
 		MAX_ELEMENTS = maxElem;
 	}
 	
@@ -40,15 +42,29 @@ public abstract class ListElements<T extends Element> {
 					if(elements.size() <= MAX_ELEMENTS) {
 						switch(te) {
 						case RESSOURCE :
-							elements.add((T) new Ressource());
+							while (true) {
+								Ressource r = new Ressource();
+								if (!isElementInArea(r.coordinates.x, r.coordinates.y, r.width, r.heigth)) {
+									elements.add((T) new Ressource());
+									break;
+								}
+							}
 							break;
-						case LARVA : 
-							elements.add( (T) new Larva());
+						case LARVA :
+							if (!isElementInArea(100, 550, 100, 100))
+								elements.add((T) new Larva());
 							break;
 						}
 					}
+					
+					// remove ressource which capacity is 0
+					if (te == TypeElement.RESSOURCE) elements.removeIf((T r) -> ((Ressource)r).getCapacity() < 1);
+					
+					// remove larvas which health is 0
+					else if (te == TypeElement.LARVA) elements.removeIf((T l) -> ((Larva)l).getHealth() < 1);
+					
 					try {
-						Thread.sleep(TIMER_DISPLAY_RESSOURCE);
+						Thread.sleep(TIMER_DISPLAY_ELEMENT);
 					} catch(Exception e) {e.printStackTrace();}
 				}
 			}
@@ -61,19 +77,46 @@ public abstract class ListElements<T extends Element> {
 	public void paintElements (Graphics g) {
 		for(int e=0; e<elements.size(); e++) {
 			g.drawImage(elements.get(e).sprite, elements.get(e).getCoordinates().x, elements.get(e).getCoordinates().y, elements.get(e).heigth, elements.get(e).width, null);			
+			g.drawRect(elements.get(e).coordinates.x, elements.get(e).coordinates.y, elements.get(e).width, elements.get(e).heigth);
 		}
+	}
+	
+	/*
+	 * Return the element if the player clicked on it
+	 */
+	public T getClickedElement (Point click) {
+		for (int i=0; i<elements.size(); i++) {
+			if (click.x >= elements.get(i).coordinates.x && click.x <= elements.get(i).coordinates.x+elements.get(i).width+15 &&
+				click.y >= elements.get(i).coordinates.y && click.y <= elements.get(i).coordinates.y+elements.get(i).heigth+15) {
+				return elements.get(i);
+			}
+		}
+		return null;
+	}
+	
+	// Check is there is, at least, 1 elements (of the same type) in the area
+	public boolean isElementInArea (int x, int y, int width, int height) {
+		width = width/2;
+		height = height/2;
+		for (Element e : elements) {
+			if ( (Math.sqrt((x+width-e.getCoordinates().x)*(x+width-e.getCoordinates().x) + 
+					(y+height-e.getCoordinates().y)*(y+height-e.getCoordinates().y))) <= 70.0) {
+				return true;
+			}
+		}
+		return false;
 	}
     
     /*
      * Getters and setters
      */
 
-	public static int getTIMER_DISPLAY_RESSOURCE() {
-		return TIMER_DISPLAY_RESSOURCE;
+	public static int getTIMER_DISPLAY_ELEMENT() {
+		return TIMER_DISPLAY_ELEMENT;
 	}
 
-	public static void setTIMER_DISPLAY_RESSOURCE(int tIMER_DISPLAY_RESSOURCE) {
-		TIMER_DISPLAY_RESSOURCE = tIMER_DISPLAY_RESSOURCE;
+	public static void setTIMER_DISPLAY_ELEMENT(int tIMER_DISPLAY_ELEMENT) {
+		TIMER_DISPLAY_ELEMENT = tIMER_DISPLAY_ELEMENT;
 	}
 
 	public static int getMAX_ELEMENTS() {

@@ -36,8 +36,22 @@ public class Ressource extends Element{
 	private final int HEIGHT_IMG = 600;
 	private final int WIDTH_IMG = 650;
 	
+	/*
+	 * Element focused by the ressource
+	 */
+	private Element ElementRessource;
+	
 	public Ressource() {
 		super(init_type());
+		init_capacity();
+	}
+	
+	/*
+	 * Constructor for testing
+	 */
+	public Ressource(TypeElement t, Point coord) {
+		super (t);
+		this.setCoordinates(coord);
 		init_capacity();
 	}
 	
@@ -64,7 +78,7 @@ public class Ressource extends Element{
 	 */
 	private void init_capacity() {
 		if(getElementType() == TypeElement.POOP)
-			this.capacity = new Random().nextInt((MAX_CAPACITY - MIN_CAPACITY) + MIN_CAPACITY) / 2;
+			this.capacity = 1;
 		else
 			this.capacity = new Random().nextInt((MAX_CAPACITY - MIN_CAPACITY) + MIN_CAPACITY);
 	}
@@ -73,7 +87,7 @@ public class Ressource extends Element{
 	public Point randomCoordinate() {
 		return (new Point (
 				(int) (100 + (View.widthBackground - 100 - 50)*new Random().nextDouble()),
-				(int) (100 + (View.heigthBackground - 200)*new Random().nextDouble())) );
+				(int) (100 + (View.heigthBackground - 300)*new Random().nextDouble())) );
 	}
 	
 	/*
@@ -82,6 +96,17 @@ public class Ressource extends Element{
 	 */
 	public void decrease() {
 		this.capacity --;
+	}
+	
+	/*
+	 * Change the state of the ressource depending of the modifications it receives
+	 */
+	Ressource waste;
+	@Override
+	public void actualizeElement() {
+		
+		//Suppress the ressource if the capacity if negative.
+		
 	}
 	
 	/*
@@ -99,5 +124,14 @@ public class Ressource extends Element{
 	public int getWIDTH_IMG() {
 		return WIDTH_IMG;
 	}
+
+	public Element getBufferedElement() {
+		return ElementRessource;
+	}
+
+	public void setBufferedElement(Element elementRessource) {
+		ElementRessource = elementRessource;
+	}
+
 
 }

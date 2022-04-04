@@ -2,6 +2,7 @@ package unit;
 
 import java.awt.Point;
 
+import element.Element;
 import element.TypeElement;
 
 /*
@@ -22,4 +23,9 @@ public class Ennemy extends Unit{
 		return null;
 	}	
 	
+	@Override
+	protected boolean action(Element bufferedElement) {
+		// TODO Auto-generated method stub
+		return true;
+	}
 }
