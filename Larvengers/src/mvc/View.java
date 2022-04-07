@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import element.*;
 import player.PlayerPanel;
 import ressource.ListRessources;
+import unit.ListEnnemies;
 import unit.ListLarvas;
 
 public class View extends JFrame{
@@ -20,25 +21,26 @@ public class View extends JFrame{
 	 */
 	public static int widthBackground = 700;
 	public static int heigthBackground = 700;
-	
+
 	/*
 	 * List of elements
 	 */
 	public ListRessources ressources;
 	public ListLarvas larvas;
-	
-	private ElementPanel gamePanel;
+	public ListEnnemies enemies;
+
+	private GamePanel gamePanel;
 	private PlayerPanel playerPanel;
-	
+
 	private Control control;
-	
+
 	/*
 	 * constructor of the class
 	 */
 	public View() {
-		super();		
+		super();
 	}
-	
+
 	/**
 	 * This function will set all the features about the window
 	 */
@@ -55,59 +57,55 @@ public class View extends JFrame{
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
-	
+
 	/*
 	 * This function configures all the panel features about the area where the game will be displayed
 	 */
 	private void setPanels() {
-		gamePanel = new ElementPanel();
+		gamePanel = new GamePanel();
 		playerPanel = new PlayerPanel();
 	}
-	
+
 	/*
-	 * GETTERS AND SETTERS 
+	 * GETTERS AND SETTERS
 	 */
-	public void setList (ListRessources ressources, ListLarvas larvas) {
-		this.ressources = ressources;
-		this.larvas = larvas;
-	}
 	public static int getWIDTH() {
 		return WIDTH;
 	}
 	public static void setWIDTH(int w) {
 		WIDTH = w;
 	}
-	
+
 	public static int getHEIGHT() {
 		return HEIGTH;
 	}
-	
+
 	public static void setHEIGHT(int h) {
 		HEIGTH = h;
 	}
-	
+
 	public static int getWidthBackground() {
 		return widthBackground;
 	}
 	public static void setWidthBackground(int widthBackground) {
 		View.widthBackground = widthBackground;
 	}
-	
+
 	public static int getHeigthBackground() {
 		return heigthBackground;
 	}
 	public static void setHeigthBackground(int lengthBackground) {
 		View.heigthBackground = lengthBackground;
 	}
-	
+
 	public void setControl(Control c) {
 		this.control = c;
 	}
-	
-	public ElementPanel getGamePanel() {
+
+	public GamePanel getGamePanel() {
 		return this.gamePanel;
 	}
-	
+
 	public PlayerPanel getPlayerPanel() {
 		return this.playerPanel;
 	}

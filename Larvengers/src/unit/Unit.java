@@ -80,7 +80,6 @@ public abstract class Unit extends Element{
 				}
 				
 			}
-		
 		// If the unit can move and need to move
 		if (speed > 0 && targetedLocation != null) {
 			double distance = Math.sqrt((targetedLocation.y - coordinates.y) * (targetedLocation.y - coordinates.y) 
@@ -115,8 +114,7 @@ public abstract class Unit extends Element{
 	public void setHealth(int health) {
 		this.health = health;
 	}
-	// d'ailleurs t'as archi win wsh
-	// son regard quand tt o tablo  douxx jesus 
+	
 	public int getAttackPoint() {
 		return attackPoint;
 	}

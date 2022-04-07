@@ -36,6 +36,11 @@ public class Ressource extends Element{
 	private final int HEIGHT_IMG = 600;
 	private final int WIDTH_IMG = 650;
 	
+	/*
+	 * Element focused by the ressource
+	 */
+	private Element ElementRessource;
+	
 	public Ressource() {
 		super(init_type());
 		init_capacity();
@@ -69,7 +74,7 @@ public class Ressource extends Element{
 	}
 	/*
 	 * Method init_capacity : Initialize the random capacity of the ressource
-	 * if the type is "poop" then the capacity is 1
+	 * if the type is "poop" then the capacity will be divided by 2
 	 */
 	private void init_capacity() {
 		if(getElementType() == TypeElement.POOP)
@@ -98,6 +103,17 @@ public class Ressource extends Element{
 	}
 	
 	/*
+	 * Change the state of the ressource depending of the modifications it receives
+	 */
+	Ressource waste;
+	@Override
+	public void actualizeElement() {
+		
+		//Suppress the ressource if the capacity if negative.
+		
+	}
+	
+	/*
 	 * Getters and setters
 	 */
 	
@@ -113,10 +129,13 @@ public class Ressource extends Element{
 		return WIDTH_IMG;
 	}
 
-	@Override
-	public void actualizeElement() {
-		// TODO Auto-generated method stub
-		
+	public Element getBufferedElement() {
+		return ElementRessource;
 	}
+
+	public void setBufferedElement(Element elementRessource) {
+		ElementRessource = elementRessource;
+	}
+
 
 }

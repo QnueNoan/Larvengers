@@ -37,6 +37,8 @@ public class Larva extends Unit{
 	 * Time for the cocoon before becoming a butterfly
 	 */
 	private Timer timerBeforeButterfly;
+	// counter 
+	private int timeLeftBeforeButterfly;
 	
 	public Larva () {
 		super (health, 1, speed, TypeElement.LARVA);
@@ -64,17 +66,22 @@ public class Larva extends Unit{
 			setHealth(100);
 			setSpeed(0);
 			timerBeforeButterfly = new Timer();
-			
-			// When timer is finished, the cocoon become a butterfly
-			TimerTask timeoutCocoon = new TimerTask() {
-				public void run()
-			      {
+			timeLeftBeforeButterfly = 0;
+			//the timer will repeat the action as long as counter =< 59
+			timerBeforeButterfly.scheduleAtFixedRate(new TimerTask() {
+				@Override
+				public void run() {
+					// TODO Auto-generated method stub
+				setTimeLeftBeforeButterfly(getTimeLeftBeforeButterfly() + 1);
+				if(getTimeLeftBeforeButterfly() >= 60) {
+					timerBeforeButterfly.cancel();
 					setElementType(TypeElement.BUTTERFLY);
 			        setLarvaState(2);
 			        setSpeed(1);
-			      }
-			};
-			timerBeforeButterfly.schedule(timeoutCocoon, 60000);
+				}
+				}
+				
+			}, 100,1000);
 		}
 	}
 	
@@ -168,6 +175,13 @@ public class Larva extends Unit{
 
 	public static void setCocktailToEvolve(int cocktailToEvolve) {
 		Larva.cocktailToEvolve = cocktailToEvolve;
+	}
+	
+	public int getTimeLeftBeforeButterfly() {
+		return this.timeLeftBeforeButterfly;
+	}
+	public void setTimeLeftBeforeButterfly(int timeleftbeforebutterfly) {
+		this.timeLeftBeforeButterfly = timeleftbeforebutterfly;
 	}
 
 }

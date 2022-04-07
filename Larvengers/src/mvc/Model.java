@@ -2,40 +2,63 @@ package mvc;
 
 import java.awt.Point;
 
+
 import element.Element;
 import ressource.ListRessources;
 import ressource.Ressource;
+import sound.Sounds;
+import unit.Ennemy;
 import unit.Larva;
+import unit.ListEnnemies;
 import unit.ListLarvas;
 import unit.Unit;
 
 public class Model {
-	
+
 	/*
 	 * MVC useful components
 	 */
 	public View view;
 	public Control control;
-	
+	public Sounds sounds;
+
 	/*
 	 * Interactive Elements
 	 */
 	public static ListLarvas larvas;
+	public static ListEnnemies ennemies;
 	public static ListRessources ressources;
-	
-	
-	public Model (View v, Control c) {
+
+
+	public Model (View v, Control c, Sounds s) {
 		view = v;
 		control = c;
+		sounds = s;
 		larvas = new ListLarvas();
+		ennemies = new ListEnnemies();
 		ressources = new ListRessources();
 		
+
 		control.setModel(this);
 		view.setWindow();
-		view.getGamePanel().setList(ressources, larvas);
+		view.getGamePanel().setList(ressources, larvas, ennemies);
 		view.getPlayerPanel().setControl(control);
+		
+		(new Thread() {
+			@Override
+			public synchronized void run() {
+				while (true) {	
+					moskitoFocus();
+					try {
+						Thread.sleep(80);
+					} catch(Exception e) {e.printStackTrace();}
+				}
+				
+			}
+			
+		}).start();
 	}
-	
+
 	/*
 	 * Move the unit u to the point p
 	 */
@@ -45,10 +68,31 @@ public class Model {
 	}
 	
 	/*
+	 * Move the ennemy to the point P
+	 */
+	public void deplacementEnnemy(Point p, Unit u) {
+		u.setTargetedLocation(p);
+	}
+	
+	/*
+	 * Move all the moskitos to the position of the last cocoon
+	 */
+	public void moskitoFocus () {
+			for (Larva l : larvas.getElements()) {
+				if(l.getLarvaState()==1) {
+					for(Ennemy e : ennemies.getElements()) {
+						deplacementEnnemy(l.getCoordinates(),e);
+					}
+				}		
+			}
+			
+	}
+
+	/*
 	 * Check if there is another element in the Element e area
 	 */
 	public static boolean isEmpty (Element e) {
-		// If the element cross a larva 
+		// If the element cross a larva
 		for (Larva l : larvas.getElements()) {
 			if ( (e.getCoordinates().x + e.width < l.getCoordinates().x && e.getCoordinates().y + e.heigth < l.getCoordinates().y) ||
 					(e.getCoordinates().x > l.getCoordinates().x+l.width && e.getCoordinates().y+e.heigth < l.getCoordinates().y) ||
@@ -57,7 +101,7 @@ public class Model {
 				return false;
 			}
 		}
-		
+
 		// If the element cross a ressource
 		for (Ressource r : ressources.getElements()) {
 			if ( (e.getCoordinates().x + e.width < r.getCoordinates().x && e.getCoordinates().y + e.heigth < r.getCoordinates().y) ||
@@ -69,7 +113,7 @@ public class Model {
 		}
 		return true;
 	}
-	
+
 	/*
 	 * Getters and setters
 	 */
@@ -105,5 +149,12 @@ public class Model {
 	public void setRessources(ListRessources ressources) {
 		this.ressources = ressources;
 	}
-	
+	public ListEnnemies getEnemies() {
+		return ennemies;
+	}
+
+	public void setEnemies(ListEnnemies enemies) {
+		this.ennemies = enemies;
+	}
+
 }

@@ -1,17 +1,11 @@
 package element;
 
 import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.Point;
 import java.util.ArrayList;
-import java.util.Arrays;
 
-import javax.swing.ImageIcon;
-
-import mvc.Model;
-import ressource.ListRessources;
 import ressource.Ressource;
-import unit.Larva;
+import unit.*;
 
 public abstract class ListElements<T extends Element> {
 	/*
@@ -30,6 +24,7 @@ public abstract class ListElements<T extends Element> {
 	
 	public ListElements (TypeElement te, int timer, int maxElem) {
 		type = te;
+		System.out.println(this.type);
 		TIMER_DISPLAY_ELEMENT = timer;
 		MAX_ELEMENTS = maxElem;
 	}
@@ -59,6 +54,13 @@ public abstract class ListElements<T extends Element> {
 							// check if the larva spawning area is empty
 							if (!isElementInArea(100, 550, 100, 100))
 								elements.add((T) new Larva());
+							break;
+						case MOSKITO :
+							if (!isElementInArea(100, 100, 100, 100)) {
+								elements.add((T) new Ennemy());
+							}
+							break;
+						default:
 							break;
 						}
 					}
@@ -92,7 +94,6 @@ public abstract class ListElements<T extends Element> {
 	 */
 	public T getClickedElement (Point click) {
 		for (int i=0; i<elements.size(); i++) {
-			
 			// If the coordinate of the click are inside the element hitbox (sprite)
 			if (click.x >= elements.get(i).coordinates.x && click.x <= elements.get(i).coordinates.x+elements.get(i).width+15 &&
 				click.y >= elements.get(i).coordinates.y && click.y <= elements.get(i).coordinates.y+elements.get(i).heigth+15) {
@@ -106,7 +107,6 @@ public abstract class ListElements<T extends Element> {
 	public boolean isElementInArea (int x, int y, int width, int height) {
 		width = width/2;
 		height = height/2;
-		
 		for (Element e : elements) {
 			// Check the distance between the point in argument and the element
 			if ( (Math.sqrt((x+width-e.getCoordinates().x)*(x+width-e.getCoordinates().x) + 

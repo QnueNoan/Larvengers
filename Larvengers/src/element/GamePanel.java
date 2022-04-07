@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 
 import mvc.View;
 import ressource.ListRessources;
+import unit.ListEnnemies;
 import unit.ListLarvas;
 
 public class GamePanel extends JPanel{
@@ -21,15 +22,19 @@ public class GamePanel extends JPanel{
 	private ImageIcon iconBackground;
 	private Image imgBackground;
 	
+	/*
+	 * Lists of elements
+	 */
 	public ListRessources ressources;
 	public ListLarvas larvas;
+	public ListEnnemies ennemies;
 	
 	
 	private static final int width = View.widthBackground;
 	private static final int height = View.heigthBackground;
 	
 	public GamePanel() {
-		this.iconBackground = new ImageIcon(getClass().getResource("/assets/Fond.jpg"));
+		this.iconBackground = new ImageIcon(getClass().getResource("/assets/Fond2.jpg"));
 		this.imgBackground = this.iconBackground.getImage();
 		
 		setPanel();
@@ -49,6 +54,9 @@ public class GamePanel extends JPanel{
 		}).start();
 	}
 	
+	/*
+	 * this function will allow you to define the configurations of the panel
+	 */
 	private void setPanel() {
 		this.setSize(width, height);
 		this.setBounds(0, 0, width, height);
@@ -57,10 +65,6 @@ public class GamePanel extends JPanel{
 		this.setVisible(true);
 	}
 	
-	public void setList (ListRessources ressources, ListLarvas larvas) {
-		this.ressources = ressources;
-		this.larvas = larvas;
-	}
 	
 	/*
 	 * this function helps to paint the component of the game
@@ -77,9 +81,19 @@ public class GamePanel extends JPanel{
 		// TODO Auto-generated method stub
 		super.paint(g);
 		paintBackground(g);
-		if(ressources != null && larvas != null) {
+		if(ressources != null && larvas != null && ennemies != null) {
 			ressources.paintElements(g);
 			larvas.paintElements(g);
+			ennemies.paintElements(g);
 		}
+	}
+	
+	/*
+	 * Setter for the lists
+	 */
+	public void setList (ListRessources ressources, ListLarvas larvas, ListEnnemies ennemies) {
+		this.ressources = ressources;
+		this.larvas = larvas;
+		this.ennemies = ennemies;
 	}
 }

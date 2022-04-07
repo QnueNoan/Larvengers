@@ -82,7 +82,7 @@ public abstract class Element {
 			heigth = 50;
 			break;
 		case LARVA : 
-			this.spriteTmp = new ImageIcon(getClass().getResource("/assets/larva.png"));
+			this.spriteTmp = new ImageIcon(getClass().getResource("/assets/larva1.png"));
 			this.sprite = this.spriteTmp.getImage();
 			width = 50;
 			heigth = 50;
@@ -94,13 +94,13 @@ public abstract class Element {
 			heigth = 50;
 			break;
 		case BUTTERFLY : 
-			spriteTmp = new ImageIcon(getClass().getResource(""));
+			spriteTmp = new ImageIcon(getClass().getResource("/assets/butterfly.png"));
 			sprite = this.spriteTmp.getImage();
-			width = 0;
-			heigth = 0;
+			width = 50;
+			heigth = 50;
 			break;
 		case MOSKITO : 
-			spriteTmp = new ImageIcon(getClass().getResource(""));
+			spriteTmp = new ImageIcon(getClass().getResource("/assets/larva1.png"));
 			sprite = this.spriteTmp.getImage();
 			width = 0;
 			heigth = 0;
@@ -110,7 +110,7 @@ public abstract class Element {
 	
 	/*
 	 * Generate randomly the position of the element at its creation
-	 * @return the calculated Point
+	 * @return the calculed Point
 	 */
 	protected abstract Point randomCoordinate();
 
