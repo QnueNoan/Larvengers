@@ -7,6 +7,7 @@ import java.util.TimerTask;
 import element.Element;
 import element.TypeElement;
 import ressource.Ressource;
+import sound.Sounds;
 
 public class Larva extends Unit{
 	/*
@@ -67,6 +68,7 @@ public class Larva extends Unit{
 			setSpeed(0);
 			timerBeforeButterfly = new Timer();
 			timeLeftBeforeButterfly = 0;
+			Sounds.playCocoonAudio();
 			//the timer will repeat the action as long as counter =< 59
 			timerBeforeButterfly.scheduleAtFixedRate(new TimerTask() {
 				@Override
@@ -129,6 +131,7 @@ public class Larva extends Unit{
 					
 					break;
 			}
+			Sounds.playEatSounds();
 			r.decrease();
 			this.setAttackPoint(this.cocktailDrunk + this.picklesEaten);
 		}

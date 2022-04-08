@@ -49,6 +49,7 @@ public class Model {
 			public synchronized void run() {
 				while (true) {	
 					moskitoFocus();
+					moskitoAttack();
 					try {
 						Thread.sleep(80);
 					} catch(Exception e) {e.printStackTrace();}
@@ -86,6 +87,23 @@ public class Model {
 				}		
 			}
 			
+	}
+	
+	/*
+	 * If a moskito attacks a larva or a cocoon, both of them die
+	 */
+	public void moskitoAttack() {
+		for (Larva l : larvas.getElements()) {
+			if(l.getLarvaState()<2) {
+				for(Ennemy e : ennemies.getElements()) {
+					if(e.unitIsInRange(l)) {
+						Sounds.playDeadSounds();
+						l.setHealth(0);
+						e.setHealth(0);
+					}
+				}
+			}		
+		}
 	}
 
 	/*

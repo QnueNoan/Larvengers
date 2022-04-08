@@ -14,16 +14,20 @@ public class Sounds {
 	 * Strings containing the absolute path of the audio file containing the game sounds 
 	 */
 	
-	private String startPath ="./sounds/start.wav";
-	private String deadPath  = "./sounds/dead.wav";
-	private String eatPath  = "./sounds/eat.wav";
-	private String cocoonPath  = "./sounds/cocoon.wav";
-	private String endPath = "./sounds/end.wav";
+	private String startPath ="./Larvengers/sounds/start.wav";
+	private String deadPath  = "./Larvengers/sounds/dead.wav";
+	private String eatPath  = "./Larvengers/sounds/eat.wav";
+	private String cocoonPath  = "./Larvengers/sounds/cocoon.wav";
+	private String endPath = "./Larvengers/sounds/end.wav";
 	
 	/*
 	 * Clip objects representing instances of the clip interface that represent the different audio tracks needed to run the game 
 	  */
-	private Clip startAudio, deadAudio, eatAudio, cocoonAudio, endAudio;
+	private static Clip startAudio;
+	private static Clip deadAudio;
+	private static Clip eatAudio;
+	private static Clip cocoonAudio;
+	private static Clip endAudio;
 	/**
 	 * Constructor of the Audio class, this constructor can be called outside the Audio class in order to create a new instance 
 	 * of this class to play the different sounds of the game.
@@ -60,66 +64,54 @@ public class Sounds {
 
 	}
 	
+	public static void stopStartSounds() {
+		if(startAudio.isRunning()) {
+			startAudio.stop();
+		}
+	
+	}
 	/**
 	 * This method plays the sound when a larva dies
 	 */
-	public void playDeadAudio() {
-		/**
-		 * If the audio when a larva eats a resource is not playing, it must be reset 
-		 * This allows you to reproduce the sound of the original version of the game accurately
-		 */
-		if(!cocoonAudio.isRunning()) {
-			cocoonAudio.setFramePosition(0);
+	public static void playDeadSounds() {
+	
+		if(!deadAudio.isRunning()) {
+			deadAudio.setFramePosition(0);
 		}
-		cocoonAudio.start();
+		deadAudio.start();
 	}
 	
 	/**
 	 * This method plays the sound when a larva eats a resource
 	 */
-	public void loopEatSounds() {
-		/**
-		 * If the audio when a larva eats a resource is not playing, it must be played continuously 
-		 */
+	public static void playEatSounds() {
+		
 		if(!eatAudio.isRunning()) {
-			eatAudio.loop(Clip.LOOP_CONTINUOUSLY);
+			eatAudio.setFramePosition(0);
 		}
+		eatAudio.start();		
+			
+		
 	}
 	/**
-	 * Method stopEatsSounds(): This method stops the sound when larva eats an eraser
-	 */
-	public void stopEatSounds() {
-		eatAudio.stop();
-		/** R�initialisation du fichier audio*/
-        try {
-			eatAudio = AudioSystem.getClip();
-			eatAudio.open(AudioSystem.getAudioInputStream(new File(eatPath).getAbsoluteFile()));
-		} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
-			e.printStackTrace();
+	 * This method stops the sound when a larva is in cocoon form
+	 * 	 */
+	public static void playCocoonAudio(){
+		if(!cocoonAudio.isRunning()) {
+			cocoonAudio.setFramePosition(0);
 		}
-    
-    }
-
-
-	/**
-	 * Methode stopCocoonAudio(): This method stops the sound when a larva is in cocoon form	 */
-	public void stopCocoonAudio(){
-		endAudio.stop();
-		/** R�initialisation du fichier audio*/
-		try {
-			endAudio = AudioSystem.getClip();
-			endAudio.open(AudioSystem.getAudioInputStream(new File(endPath).getAbsoluteFile() ) );
-		} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
-			e.printStackTrace();
-		}
-    }
+		cocoonAudio.start();
+	}
+		
 	/**
 	 * Methode playMortAudio(): This method plays the death sound of a larva.
 	 */
-	public void playEndSounds() {
-		deadAudio.setFramePosition(0);
-		deadAudio.start();
+	public static void playEndSounds() {
+		if(!endAudio.isRunning()) {
+			endAudio.setFramePosition(0);
+		}
+		endAudio.start();
 	}
-	
-	
 }
+		
+	

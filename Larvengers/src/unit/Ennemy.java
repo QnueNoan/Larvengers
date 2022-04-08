@@ -34,12 +34,6 @@ public class Ennemy extends Unit{
 	 * Do all the possible actions for the Moskito
 	 */
 	protected boolean action(Element bufferedElement) {
-		if (bufferedElement.getElementType() == TypeElement.LARVA ||
-		
-				bufferedElement.getElementType() == TypeElement.COCOON) {
-			this.setTargetedLocation(this.coordinates);
-			return true;
-		}
 		return false;
 	}
 	

@@ -19,6 +19,7 @@ import unit.Larva;
 import mvc.Control;
 import mvc.View;
 import ressource.Ressource;
+import sound.Sounds;
 
 @SuppressWarnings("serial")
 public class PlayerPanel extends JPanel{
@@ -151,16 +152,28 @@ public class PlayerPanel extends JPanel{
 			for(Larva l : control.getModel().getLarvas().getElements()) {
 				if (l.getLarvaState() == 2) {
 					score += 1;
+					if (score == 3) {
+						Sounds.playEndSounds();
+						Sounds.stopStartSounds();
+						scoreText = new JLabel();
+						scoreText.setFont(new Font("Verdana", Font.BOLD, 18));
+						scoreText.setText("Félicitations!!");
+						scoreText.setBounds(88, 50, width_LABEL, height_LABEL);
+						scoreText.setVisible(true);
+						this.add(scoreText);
+						
+					}
 				}
 			}
 		}
-		
-		scoreText = new JLabel();
-		scoreText.setFont(new Font("Verdana", Font.BOLD, 18));
-		scoreText.setText("Score : " + score);
-		scoreText.setBounds(88, 50, width_LABEL, height_LABEL);
-		scoreText.setVisible(true);
-		this.add(scoreText);
+		if(score<3) {
+			scoreText = new JLabel();
+			scoreText.setFont(new Font("Verdana", Font.BOLD, 18));
+			scoreText.setText("Score : " + score);
+			scoreText.setBounds(88, 50, width_LABEL, height_LABEL);
+			scoreText.setVisible(true);
+			this.add(scoreText);
+		}
 	}
 	
 	/*

@@ -24,6 +24,7 @@ public abstract class ListElements<T extends Element> {
 	
 	public ListElements (TypeElement te, int timer, int maxElem) {
 		type = te;
+		System.out.println(this.type);
 		TIMER_DISPLAY_ELEMENT = timer;
 		MAX_ELEMENTS = maxElem;
 	}
@@ -65,10 +66,19 @@ public abstract class ListElements<T extends Element> {
 					}
 					
 					// remove ressource which capacity is 0
-					if (type == TypeElement.RESSOURCE) elements.removeIf((T r) -> ((Ressource)r).getCapacity() < 1);
+					if (type == TypeElement.RESSOURCE) 
+						elements.removeIf((T r) -> ((Ressource)r).getCapacity() < 1);
 					
 					// remove larvas which health is 0
-					else if (type == TypeElement.LARVA) elements.removeIf((T l) -> ((Larva)l).getHealth() < 1);
+					else if (type == TypeElement.LARVA) 
+						elements.removeIf((T l) -> ((Larva)l).getHealth() < 1);
+					// remove cocoons which health is 0
+					else if (type == TypeElement.COCOON) 
+						elements.removeIf((T l) -> ((Larva)l).getHealth() < 1);
+					// remove moskitos which health is 0
+					else if (type == TypeElement.MOSKITO) 
+						elements.removeIf((T l) -> ((Ennemy)l).getHealth() < 1);
+					
 					
 					try {
 						Thread.sleep(TIMER_DISPLAY_ELEMENT);
@@ -77,6 +87,8 @@ public abstract class ListElements<T extends Element> {
 			}
 		}).start();
 	}
+	
+	
 	
 	/*
 	 * Draw all Element of the elements list

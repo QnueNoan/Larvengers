@@ -104,6 +104,12 @@ public abstract class Unit extends Element{
 		return (Math.sqrt((bufferedElement.getCoordinates().x-coordinates.x)*(bufferedElement.getCoordinates().x-coordinates.x) + (bufferedElement.getCoordinates().y-coordinates.y)*(bufferedElement.getCoordinates().y-coordinates.y)) <= range);
 	}
 	
+	// check if a Unit is in range
+	public boolean unitIsInRange(Unit u) {
+		return (Math.sqrt((u.getCoordinates().x-coordinates.x)*(u.getCoordinates().x-coordinates.x) + (u.getCoordinates().y-coordinates.y)*(u.getCoordinates().y-coordinates.y)) <= range);
+	}
+	
+	
 	/*
 	 * Getters and setters
 	 */
