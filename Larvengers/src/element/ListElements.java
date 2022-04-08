@@ -24,7 +24,6 @@ public abstract class ListElements<T extends Element> {
 	
 	public ListElements (TypeElement te, int timer, int maxElem) {
 		type = te;
-		System.out.println(this.type);
 		TIMER_DISPLAY_ELEMENT = timer;
 		MAX_ELEMENTS = maxElem;
 	}

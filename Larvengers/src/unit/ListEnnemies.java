@@ -14,7 +14,6 @@ public class ListEnnemies extends ListElements<Ennemy>{
 		public ListEnnemies () {
 			super (TypeElement.MOSKITO, TIMER_GEN_MOSKITO, MAX_MOSKITO);
 			addElements();
-			System.out.println(this.getElements().size());
 		}
 }
 
